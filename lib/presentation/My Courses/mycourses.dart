@@ -9,8 +9,8 @@ import 'models/iphone_11_pro_max_ten_model.dart';
 import 'widgets/courselist_item_widget.dart'; // ignore_for_file: must_be_immutable
 
 // ignore_for_file: must_be_immutable
-class Iphone11ProMaxTenPage extends StatelessWidget {
-  Iphone11ProMaxTenPage({Key? key})
+class mycourses extends StatelessWidget {
+  mycourses({Key? key})
       : super(
           key: key,
         );

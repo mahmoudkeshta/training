@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:training/Verification/models/Verification.dart';
+import 'package:training/presentation/Verification/models/Verification.dart';
 import 'package:training/core/app_export.dart';
 import 'package:training/core/network/handlingdata.dart';
 import 'package:training/presentation/signup/models/statusrequest.dart';
@@ -10,57 +10,49 @@ class VerificationController extends GetxController {
   late Verification verification;
   late StatusRequest statusRequest;
   final codeControllers = List.generate(5, (index) => TextEditingController());
+  var isButtonEnabled = false.obs; // Observable for button enabled state
 
   @override
   void onInit() {
+    super.onInit();
     email = Get.arguments['email'];
-      String code = codeControllers.map((controller) => controller.text).join();
     verification = Verification(Get.find());
+
+    // Add listeners to code controllers
     for (var controller in codeControllers) {
       controller.addListener(_checkIfButtonShouldBeEnabled);
     }
-   
-    super.onInit();
   }
 
   @override
   void onClose() {
+    // Dispose controllers
     for (var controller in codeControllers) {
       controller.dispose();
     }
     super.onClose();
   }
 
-
-  bool get isButtonEnabled {
-   
-    return codeControllers.every((controller) => controller.text.isNotEmpty);
-    
-  }
-   
+  // Method to check if the button should be enabled
   void _checkIfButtonShouldBeEnabled() {
-  
-  codeControllers.every((controller) => controller.text.isNotEmpty); 
-    update();
-     // This will call the getter `isButtonEnabled` and update the UI accordingly
+    isButtonEnabled.value = codeControllers.every((controller) => controller.text.isNotEmpty);
   }
-verifyCode() async {
+
+  // Method to verify the code
+  verifyCode() async {
     statusRequest = StatusRequest.loading;
-    
+    update();
 
     String code = codeControllers.map((controller) => controller.text).join();
-update();
+
     try {
       var response = await verification.Verifica(email!, code);
       print('Response: $response'); // Debugging: Log the response
-       Get.toNamed(AppRoutes.homeContainerScreen);
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
-         
         if (response['status'] == "Success" ) {
-        
-       
+          Get.toNamed(AppRoutes.homeContainerScreen);
         } else {
           Get.defaultDialog(title: "Warning", middleText: "Invalid verification code");
           statusRequest = StatusRequest.failure;

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:training/Verification/controller/VerificationController.dart';
-import 'package:training/Verifiy/controller/VerificationController.dart';
+import 'package:training/presentation/Verification/controller/VerificationController.dart';
+import 'package:training/presentation/Verifiy/controller/VerificationController.dart';
 import 'package:training/core/utils/image_constant.dart';
-import 'package:training/routes/app_routes.dart';
 
 class Verify extends StatelessWidget {
- //Verify(find);
-
   @override
   Widget build(BuildContext context) {
-    final VerificationController1 controller = Get.put(VerificationController1());
+    final Verifica controller = Get.put(Verifica());
 
     return Scaffold(
       body: Container(
@@ -70,12 +67,10 @@ class Verify extends StatelessWidget {
                     }),
                   ),
                   SizedBox(height: 40),
-                  ElevatedButton(
-                    onPressed: controller.isButtonEnabled 
+                  Obx(() => ElevatedButton(
+                    onPressed: controller.isButtonEnabled.value 
                       ? () {
                           controller.verifyCode();
-                          
-                           
                         }
                       : null,
                     style: ElevatedButton.styleFrom(
@@ -92,7 +87,7 @@ class Verify extends StatelessWidget {
                         fontFamily: 'Lato',
                       ),
                     ),
-                  ),
+                  )),
                   SizedBox(height: 20),
                   Text(
                     'Didn\'t receive the code? Resend',

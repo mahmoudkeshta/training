@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:training/checkemail/controller/LoginPage_controller.dart';
+import 'package:training/presentation/checkemail/controller/LoginPage_controller.dart';
 import 'package:training/core/utils/image_constant.dart';
 
 class CheckEmailPage extends StatelessWidget {

@@ -1,5 +1,5 @@
 class AppLink {
-  static const String server = "http://192.168.70.190/ecommercecourse-PHP--master"; // For Android Emulator
+  static const String server = "http://192.168.1.190/ecommercecourse-PHP--master"; // For Android Emulator
   // static const String server = "http://localhost/ecommercecourse-PHP--master"; // For iOS Simulator
   static const String test = "$server/test.php";
   static const String signup = "$server/aurh/signup.php";

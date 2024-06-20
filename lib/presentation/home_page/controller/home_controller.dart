@@ -1,24 +1,20 @@
-import 'dart:convert';
-import 'package:get/get.dart';
-// ignore: depend_on_referenced_packages
-import 'package:http/http.dart' as http;
+
 import 'package:training/core/network/handlingdata.dart';
 import 'package:training/core/network/services.dart';
-import 'package:training/presentation/home_page/models/department.dart';
+import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/homedata.dart';
 import 'package:training/presentation/signup/models/statusrequest.dart';
-
 import '../../../core/app_export.dart';
-import '../models/department.dart';
 import '../models/home_model.dart';
 
 abstract class HomeController extends GetxController {
-  HomeController(this.homeModelObj);
+  HomeController(this.homeModelObj,this.Course);
 //final m= "".obs;
+
  List advertisements = [];
 
      List popular_bloggers = [];
-  List course = [];
+  List course1 = [];
   List data = [];
    List department = [];
   var isLoading = true.obs;
@@ -27,6 +23,8 @@ abstract class HomeController extends GetxController {
   Homedata homedata = Homedata(Get.find());
   String? username;
   String? id;
+    course Course;
+  gotoshowcourse( course Course );
 
  late StatusRequest statusRequest;
 
@@ -44,8 +42,8 @@ abstract class HomeController extends GetxController {
 
   
 
-   Future getdara() async {
-   statusRequest = StatusRequest.loading;
+    getdara() async {
+   statusRequest =  StatusRequest.loading;
    // Update the UI to reflect loading state
 
     var response = await homedata.getDate();
@@ -56,9 +54,9 @@ abstract class HomeController extends GetxController {
     if(response['status']=="success"){
       department.addAll(response['department']);
     
-    course.addAll(response['course']);
+    course1.addAll(response['course']);
     advertisements.addAll(response['advertisements']);
-    popular_bloggers.addAll(response['popular_bloggers']);
+   // popular_bloggers.addAll(response['popular_bloggers']);
 
     }else{
       statusRequest = StatusRequest.failure;
@@ -76,10 +74,18 @@ abstract class HomeController extends GetxController {
 class HomeControllerImp extends HomeController {
 
  
-  HomeControllerImp(Rx<HomeModel> homeModelObj) : super(homeModelObj);
+  HomeControllerImp(Rx<HomeModel> homeModelObj) : super(homeModelObj,course());
   @override
   initialData() {
     username = myservices.sharedPreferences.getString("username");
     id = myservices.sharedPreferences.getString("id");
+  }
+  
+  @override
+  gotoshowcourse(Course) {
+ Get.toNamed(AppRoutes.show_course,arguments: {
+  "Course":Course
+ });
+
   }
 }

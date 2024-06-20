@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:training/core/utils/image_constant.dart';
 
-import 'package:training/resetpassword2/controller/resetpasswordController.dart';
+import 'package:training/presentation/resetpassword2/controller/resetpasswordController.dart';
 
 class ResetPasswordPage extends StatelessWidget {
       final ResetPas co = Get.put(ResetPas());

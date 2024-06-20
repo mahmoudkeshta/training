@@ -45,7 +45,7 @@ class HomeModel {
         dataScienceImag: ImageConstant.imgUnsplash58z17lnvs4u.obs,
         dataScienceText: "Machine Learning".obs,
         ratingText: "4.6".obs,
-        learnerText: "10.5k Learners".obs)
+        learnerText: "10.5k Learners".obs),
   ]);
 
   Rx<List<UserprofileItemModel>> userprofileItemList = Rx([

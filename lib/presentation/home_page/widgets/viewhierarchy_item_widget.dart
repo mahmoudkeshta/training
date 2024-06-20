@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/department.dart';
+import 'package:training/presentation/signup/models/statusrequest.dart';
 import '../../../core/app_export.dart';
 import '../controller/home_controller.dart';
 import '../models/viewhierarchy_item_model.dart'; // ignore: must_be_immutable
@@ -22,7 +24,8 @@ department dep;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+   return  HandlingDataview(statusRequest:controller.statusRequest , widget: 
+    SizedBox(
       width:175.h, //173.h,
       child: Align(
         alignment: Alignment.centerRight,
@@ -95,6 +98,7 @@ department dep;
           ),
         ),
       ),
+    )
     );
   }
 }

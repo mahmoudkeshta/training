@@ -50,7 +50,7 @@ class CustomBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48.v,
+      height: 51.v,//48
       child: Obx(
         () => BottomNavigationBar(
           backgroundColor: Colors.transparent,

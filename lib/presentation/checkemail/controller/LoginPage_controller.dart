@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:training/checkemail/models/Verification.dart';
+import 'package:training/presentation/checkemail/models/Verification.dart';
 import 'package:training/core/network/handlingdata.dart';
 import 'package:training/presentation/signup/models/statusrequest.dart';
 import 'package:training/routes/app_routes.dart';

@@ -1,24 +1,12 @@
-import 'dart:convert';
-
 import 'package:carousel_slider/carousel_slider.dart';
-
-import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter/widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:training/core/network/handlingDataview.dart';
-import 'package:training/core/utils/image_constant.dart';
-import 'package:training/core/utils/size_utils.dart';
 import 'package:training/presentation/home_page/controller/test_controller.dart';
+import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/advertisements.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
-import 'package:training/theme/custom_text_style.dart';
-import 'package:training/theme/theme_helper.dart';
-
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/appbar_trailing_image.dart';
@@ -27,7 +15,6 @@ import 'controller/home_controller.dart';
 import 'models/home_model.dart';
 import 'models/onlineworld_item_model.dart';
 import 'models/userprofile_item_model.dart';
-import 'models/viewhierarchy1_item_model.dart';
 import 'models/viewhierarchy_item_model.dart';
 import 'widgets/onlineworld_item_widget.dart';
 import 'widgets/userprofile_item_widget.dart';
@@ -64,9 +51,10 @@ Widget build(BuildContext context) {
                 children: [
 
                   _buildHeroSection(),
-                  SizedBox(height: 21.v),
+                 // SizedBox(height: 21.v),
         // buildDepartmentList(),
                      SizedBox(height: 21.v),
+                     
                   _buildCategoriesSection(),
                   SizedBox(height: 21.v),
                  _buildTopCoursesSection(),
@@ -200,11 +188,12 @@ Widget build(BuildContext context) {
                  
                     ViewhierarchyItemModel model = controller
                         .homeModelObj.value.viewhierarchyItemList.value[index];
+                       return   HandlingDataview(statusRequest: controller.statusRequest, widget: 
                         
-                    return ViewhierarchyItemWidget(
+                   ViewhierarchyItemWidget(
                       model, dep: department.fromJson(controller.department[index]),
                       
-                    );
+                    ));
                   },
                 );
                 }
@@ -218,7 +207,9 @@ Widget build(BuildContext context) {
 
   /// Section Widget
   Widget _buildTopCoursesSection() {
-    return Column(
+    return 
+    
+     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
@@ -255,8 +246,8 @@ Widget build(BuildContext context) {
              
               GetBuilder<HomeController>(
               builder:(controller) {
-                
-             return
+              return HandlingDataview(statusRequest: controller.statusRequest, widget:   
+            
               ListView.separated(
                   padding: EdgeInsets.only(left: 25.h),
                   scrollDirection: Axis.horizontal,
@@ -265,14 +256,16 @@ Widget build(BuildContext context) {
                       width: 15.h,
                     );
                   },
-                  itemCount://controller.Department.length,
+                  itemCount:controller.course1.length,
                  // controller.Department.length,
-                  controller.homeModelObj.value.viewhierarchy1ItemList.value.length,
+                //  controller.homeModelObj.value.viewhierarchy1ItemList.value.length,
                   itemBuilder: (context, index) {
-                  
+              /**
+               *     
                    Viewhierarchy1ItemModel model = controller
                         .homeModelObj.value.viewhierarchy1ItemList.value[index];
                 
+               */
                    
                 
                     return  //Text("${controller.Department[index]}");
@@ -280,10 +273,11 @@ Widget build(BuildContext context) {
                         
                     
                      Viewhierarchy1ItemWidget(
-                   model, Course: course.fromJson(controller.course[index]),
+                   //model,
+                    Course: course.fromJson(controller.course1[index]),
                     ); 
                  },
-                );
+              )  );
                  },
               ),
 

@@ -7,7 +7,7 @@ class course {
   String? startDate;
   String? endDate;
   String? evaluation;
-  Null? imageCourese;
+  String? imageCourese;
 
   course(
       {this.courseID,

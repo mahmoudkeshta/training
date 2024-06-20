@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:training/Verification/controller/VerificationController.dart';
-import 'package:training/Verification/controller/VerificationController.dart';
+import 'package:training/presentation/Verification/controller/VerificationController.dart';
 import 'package:training/core/utils/image_constant.dart';
-import 'package:training/routes/app_routes.dart';
 
 class VerifyCodePage extends StatelessWidget {
   @override
@@ -68,12 +66,10 @@ class VerifyCodePage extends StatelessWidget {
                     }),
                   ),
                   SizedBox(height: 40),
-                  ElevatedButton(
-                    onPressed: controller.isButtonEnabled 
+                  Obx(() => ElevatedButton(
+                    onPressed: controller.isButtonEnabled.value 
                       ? () {
                           controller.verifyCode();
-                          
-                           
                         }
                       : null,
                     style: ElevatedButton.styleFrom(
@@ -90,7 +86,7 @@ class VerifyCodePage extends StatelessWidget {
                         fontFamily: 'Lato',
                       ),
                     ),
-                  ),
+                  )),
                   SizedBox(height: 20),
                   Text(
                     'Didn\'t receive the code? Resend',

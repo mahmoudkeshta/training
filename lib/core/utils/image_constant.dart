@@ -17,6 +17,7 @@ class ImageConstant {
 
   static String imgNavMyProfile = '$imagePath/img_nav_my_profile.svg';
   static String m = '$imagePath/5.json';
+  static String m1 = '$imagePath/2.json';
 
 // Home images
   static String imgSearch = '$imagePath/img_search.svg';
