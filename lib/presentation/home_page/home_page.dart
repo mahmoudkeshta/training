@@ -5,6 +5,7 @@ import 'package:training/presentation/home_page/controller/test_controller.dart'
 import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/advertisements.dart';
 import 'package:training/presentation/home_page/models/course.dart';
+import 'package:training/presentation/home_page/models/coursedetails.dart';
 import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
 import '../../core/app_export.dart';
@@ -191,7 +192,7 @@ Widget build(BuildContext context) {
                        return   HandlingDataview(statusRequest: controller.statusRequest, widget: 
                         
                    ViewhierarchyItemWidget(
-                      model, dep: department.fromJson(controller.department[index]),
+                      model, dep: department.fromJson(controller.department1[index]),
                       
                     ));
                   },
@@ -207,6 +208,7 @@ Widget build(BuildContext context) {
 
   /// Section Widget
   Widget _buildTopCoursesSection() {
+    coursedetails  Coursedetails ;
     return 
     
      Column(
@@ -275,6 +277,8 @@ Widget build(BuildContext context) {
                      Viewhierarchy1ItemWidget(
                    //model,
                     Course: course.fromJson(controller.course1[index]),
+                    Coursedetails:coursedetails.fromJson(controller.coursedetails1[index]), 
+                    Department:department.fromJson(controller.course1[index]),
                     ); 
                  },
               )  );

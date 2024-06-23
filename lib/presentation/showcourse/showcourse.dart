@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import 'package:training/presentation/home_page/controller/home_controller.dart';
+import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 
 import 'package:training/presentation/home_page/models/home_model.dart';
 import 'package:training/presentation/showcourse/controller/showcoursecontroller.dart';
@@ -21,6 +22,7 @@ class CourseDetailScreen extends StatelessWidget {
   // String   course = Get.arguments['Course'] ; 
 
  //final Course = Get.Course;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +86,13 @@ class CourseDetailScreen extends StatelessWidget {
 class OverviewTab extends StatelessWidget {
  final showcoursecontrollerImg controller = Get.put(showcoursecontrollerImg());
 
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return 
+    
+    
+    SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -134,13 +140,18 @@ class OverviewTab extends StatelessWidget {
         ),
       ),
     );
+
   }
 }
 
+
 class LecturesTab extends StatelessWidget {
+ final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
+  
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return HandlingDataview(statusRequest: controller1.statusRequest, widget: 
+    SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -179,15 +190,89 @@ class LecturesTab extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }
 
 class SimilarCoursesTab extends StatelessWidget {
+  final showcoursecontrollerImg controller = Get.put(showcoursecontrollerImg());
+ final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Similar Courses'),
+    return 
+    
+    HandlingDataview(statusRequest: controller1.statusRequest, widget: 
+    Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Similar Courses',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Table(
+              border: TableBorder.all(
+                color: Colors.grey,
+                width: 1.0,
+              ),
+              children: [
+              
+                _buildTableRow('Description', '${controller.Coursedetails.departmentName}', Colors.green),
+/***
+ *                 _buildTableRow('Start Date', '2024-06-01', Colors.orange),
+                _buildTableRow('End Date', '2024-06-15', Colors.yellow),
+ */
+              //  _buildTableRow('Evaluation', '4.1', Colors.red),
+                _buildTableRow('Admin Name', '${controller.Coursedetails.adminName}', Colors.purple),
+              //  _buildTableRow('Course Title', 'Course 2', Colors.blue),
+                _buildTableRow('Session Date', '${controller.Coursedetails.sessionDate}', Colors.green),
+                _buildTableRow('Start Date', '${controller.Coursedetails.startDate}', const Color.fromARGB(255, 255, 152, 0)),
+                _buildTableRow('End Date', '${controller.Coursedetails.endDate}', Colors.yellow),
+                _buildTableRow('Day Of Week', '${controller.Coursedetails.dayOfWeek}', Colors.purple),
+                _buildTableRow('course URL', '${controller.Coursedetails.courseURL}', Colors.purple),
+              ],
+            ),
+          ],
+        ),
+      ),
+      )  );
+  }
+
+  TableRow _buildTableRow(String label, String value, Color color) {
+    return TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            color: color.withOpacity(0.1),  // إضافة شفافية للألوان
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            color: color.withOpacity(0.1),  // إضافة شفافية للألوان
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              value,
+              style: TextStyle(
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

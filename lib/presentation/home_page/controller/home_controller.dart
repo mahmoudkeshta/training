@@ -2,21 +2,27 @@
 import 'package:training/core/network/handlingdata.dart';
 import 'package:training/core/network/services.dart';
 import 'package:training/presentation/home_page/models/course.dart';
+import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/homedata.dart';
 import 'package:training/presentation/signup/models/statusrequest.dart';
 import '../../../core/app_export.dart';
 import '../models/home_model.dart';
 
 abstract class HomeController extends GetxController {
-  HomeController(this.homeModelObj,this.Course);
+  HomeController(this.homeModelObj,this.Course,this.Coursedetails,this.Department);
 //final m= "".obs;
 
  List advertisements = [];
 
      List popular_bloggers = [];
+     List coursedetails1 = [];
   List course1 = [];
   List data = [];
-   List department = [];
+   List department1 = [];
+   
   var isLoading = true.obs;
   Rx<HomeModel> homeModelObj;
   Myservices myservices = Get.find();
@@ -24,7 +30,9 @@ abstract class HomeController extends GetxController {
   String? username;
   String? id;
     course Course;
-  gotoshowcourse( course Course );
+    coursedetails Coursedetails;
+    department Department;
+  gotoshowcourse( course Course, coursedetails  Coursedetails,department Department);
 
  late StatusRequest statusRequest;
 
@@ -52,10 +60,11 @@ abstract class HomeController extends GetxController {
 
     if ( StatusRequest.success == statusRequest ) {
     if(response['status']=="success"){
-      department.addAll(response['department']);
+      department1.addAll(response['department']);
     
     course1.addAll(response['course']);
     advertisements.addAll(response['advertisements']);
+    coursedetails1.addAll(response['coursedetails']);
    // popular_bloggers.addAll(response['popular_bloggers']);
 
     }else{
@@ -74,7 +83,7 @@ abstract class HomeController extends GetxController {
 class HomeControllerImp extends HomeController {
 
  
-  HomeControllerImp(Rx<HomeModel> homeModelObj) : super(homeModelObj,course());
+  HomeControllerImp(Rx<HomeModel> homeModelObj) : super(homeModelObj,course(),coursedetails(),department());
   @override
   initialData() {
     username = myservices.sharedPreferences.getString("username");
@@ -82,9 +91,12 @@ class HomeControllerImp extends HomeController {
   }
   
   @override
-  gotoshowcourse(Course) {
+  // ignore: non_constant_identifier_names
+  gotoshowcourse(Course,Coursedetails,Department) {
  Get.toNamed(AppRoutes.show_course,arguments: {
-  "Course":Course
+  "Course":Course,
+  "Coursedetails":Coursedetails,
+  "Department":Department,
  });
 
   }

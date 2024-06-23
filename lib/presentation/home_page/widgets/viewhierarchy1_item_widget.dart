@@ -1,6 +1,7 @@
  import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:training/presentation/home_page/models/course.dart';
+import 'package:training/presentation/home_page/models/coursedetails.dart';
 import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/home_model.dart';
 import '../../../core/app_export.dart';
@@ -11,8 +12,13 @@ import '../models/viewhierarchy1_item_model.dart'; // ignore: must_be_immutable
 // ignore_for_file: must_be_immutable
 class Viewhierarchy1ItemWidget extends StatelessWidget {
  course Course;
+ coursedetails Coursedetails;
+   department Department;
+  // ignore: use_super_parameters
   Viewhierarchy1ItemWidget(//this.viewhierarchy1ItemModelObj,
    {Key? key, required this.Course
+  , required this.Coursedetails
+  , required this.Department
   })
       : super(
           key: key,
@@ -123,7 +129,7 @@ class Viewhierarchy1ItemWidget extends StatelessWidget {
       ),
       onTap: (){
 
-        controller.gotoshowcourse(Course);
+        controller.gotoshowcourse(Course,Coursedetails,Department);
       },
     );
   }
