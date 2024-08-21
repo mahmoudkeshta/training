@@ -69,7 +69,7 @@ class OnlineworldItemWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 14.v),
                   CustomElevatedButton(
-                    width: 125.h,
+                    width: 129.h,
                     text: "lbl_enroll_for_free".tr,
                   )
                 ],

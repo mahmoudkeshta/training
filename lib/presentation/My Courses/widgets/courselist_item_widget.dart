@@ -1,23 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:training/presentation/home_page/controller/home_controller.dart';
+import 'package:training/presentation/home_page/models/course.dart';
+import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/home_model.dart';
+import 'package:training/presentation/showcourse/models/coursemedia.dart';
 import '../../../core/app_export.dart';
 import '../controller/iphone_11_pro_max_ten_controller.dart';
-import '../models/courselist_item_model.dart'; // ignore: must_be_immutable
-// ignore_for_file: must_be_immutable
 
-// ignore_for_file: must_be_immutable
-class CourselistItemWidget extends StatelessWidget {
-  CourselistItemWidget(this.courselistItemModelObj, {Key? key})
-      : super(
-          key: key,
-        );
+class CourselistItemWidget extends StatefulWidget {
+  final course Course;
+  final coursedetails Coursedetails;
+  final coursemedia Coursemedia;
 
-  CourselistItemModel courselistItemModelObj;
+  CourselistItemWidget({
+    Key? key,
+    required this.Course,
+    required this.Coursedetails,
+    required this.Coursemedia,
+  }) : super(key: key);
 
+  @override
+  _CourselistItemWidgetState createState() => _CourselistItemWidgetState();
+}
+
+class _CourselistItemWidgetState extends State<CourselistItemWidget> {
   var controller = Get.find<Iphone11ProMaxTenController>();
+  final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
+
+  bool _isExpanded = false;
+
+/**
+ *   @override
+  void initState() {
+    super.initState();
+    // تغيير حالة _isExpanded بعد فترة زمنية
+    Future.delayed(Duration(milliseconds: 500), () {
+      setState(() {
+         _isExpanded = !_isExpanded;
+             print("Expanded state: $_isExpanded"); 
+      }
+      );
+    });
+  }
+ */
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(seconds: 1), // مدة الحركة
+      curve: Curves.easeInOut, // منحنى الحركة
+      width: _isExpanded ? 400 : 50, // عرض الحاوية يتغير مع الحركة
       decoration: AppDecoration.outlineBlack900,
       child: Container(
         margin: EdgeInsets.only(left: 1.h),
@@ -41,22 +74,18 @@ class CourselistItemWidget extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(
-                        () => Text(
-                          courselistItemModelObj.machineLearning!.value,
-                          style: theme.textTheme.bodyLarge,
-                        ),
+                      Text(
+                        "${widget.Coursedetails.courseTitle}",
+                        style: theme.textTheme.bodyLarge,
                       ),
                       SizedBox(height: 7.v),
                       SizedBox(
                         width: 206.h,
-                        child: Obx(
-                          () => Text(
-                            courselistItemModelObj.machineLearning1!.value,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.textTheme.bodySmall,
-                          ),
+                        child: Text(
+                          "${widget.Coursedetails.courseDescription}",
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall,
                         ),
                       ),
                       SizedBox(height: 8.v),
@@ -70,11 +99,9 @@ class CourselistItemWidget extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 10.h),
-                            child: Obx(
-                              () => Text(
-                                courselistItemModelObj.hoursLeftText!.value,
-                                style: theme.textTheme.bodySmall,
-                              ),
+                            child: Text(
+                              "l",
+                              style: theme.textTheme.bodySmall,
                             ),
                           )
                         ],
@@ -93,11 +120,9 @@ class CourselistItemWidget extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.center,
-                          child: Obx(
-                            () => Text(
-                              courselistItemModelObj.percentageText!.value,
-                              style: theme.textTheme.bodyLarge,
-                            ),
+                          child: Text(
+                            "2 hours left",
+                            style: theme.textTheme.bodyLarge,
                           ),
                         ),
                         Align(
@@ -107,9 +132,7 @@ class CourselistItemWidget extends StatelessWidget {
                             width: 62.adaptSize,
                             decoration: BoxDecoration(
                               color: appTheme.greenA700,
-                              borderRadius: BorderRadius.circular(
-                                31.h,
-                              ),
+                              borderRadius: BorderRadius.circular(31.h),
                             ),
                           ),
                         )
@@ -120,12 +143,24 @@ class CourselistItemWidget extends StatelessWidget {
               ),
             ),
             SizedBox(height: 36.v),
-            Obx(
-              () => Text(
-                courselistItemModelObj.startLearningTe!.value,
+            InkWell(
+              child: Text(
+                "Start Learning",
                 style: CustomTextStyles.bodyLargePrimaryContainer,
               ),
-            )
+              onTap: () {
+                controller1.gotoshowcourse(
+                    widget.Course, widget.Coursedetails, widget.Coursemedia);
+              },
+              onDoubleTap: () {    setState(() {
+         _isExpanded = !_isExpanded;
+             print("Expanded state: $_isExpanded"); 
+      }
+      );
+                
+              },
+
+            ),
           ],
         ),
       ),

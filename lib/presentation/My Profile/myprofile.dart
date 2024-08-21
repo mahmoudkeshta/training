@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/appbar_leading_image.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
@@ -7,8 +8,8 @@ import 'controller/iphone_11_pro_max_fourteen_controller.dart';
 import 'models/iphone_11_pro_max_fourteen_model.dart'; // ignore_for_file: must_be_immutable
 
 // ignore_for_file: must_be_immutable
-class Iphone11ProMaxFourteenPage extends StatelessWidget {
-  Iphone11ProMaxFourteenPage({Key? key})
+class myprofile extends StatelessWidget {
+  myprofile({Key? key})
       : super(
           key: key,
         );
@@ -18,6 +19,10 @@ class Iphone11ProMaxFourteenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
+
+  
+    
     return SafeArea(
       child: Scaffold(
         backgroundColor: appTheme.whiteA700,
@@ -57,8 +62,10 @@ class Iphone11ProMaxFourteenPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "lbl_liza_horllow".tr,
+                          '${controller.username}',
+                         // "lbl_liza_horllow".tr,
                           style: CustomTextStyles.labelLargeGray80002,
+                          selectionColor: Colors.black26,
                         ),
                         SizedBox(height: 2.v),
                         Text(
