@@ -18,6 +18,7 @@ class HandlingDataview extends StatelessWidget {
 
             : statusRequest == StatusRequest.serverfailure
                 ? const Center(child: Text("serverfailure..."))
+                
                 : statusRequest == StatusRequest.failure
                     ? const Center(child: Text("failure..."))
                     : widget;

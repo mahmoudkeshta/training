@@ -103,9 +103,9 @@ class TextThemes {
 /// Class containing the supported color schemes.
 class ColorSchemes {
   static final lightCodeColorScheme = ColorScheme.light(
-    primary: Color(0XFF696969),
+    primary: Color.fromRGBO(212, 157, 47, 1),//Color(0XFF696969),
     primaryContainer: Color(0XFF0013B8),
-    onPrimary: Color(0XFF1D0093),
+    onPrimary:  Color.fromRGBO(212, 157, 47, 1),//Color(0XFF1D0093),
   );
 }
 
@@ -117,9 +117,9 @@ class LightCodeColors {
   Color get blue50 => Color(0XFFD2E4FF);
   Color get blueA100 => Color(0XFF91B3FA);
 // BlueGray
-  Color get blueGray400 => Color(0XFF888888);
+  Color get blueGray400 => Color.fromRGBO(212, 157, 47, 1);//Color(0XFF888888);
 // DeepPurple
-  Color get deepPurpleA700 => Color(0XFF2D05CE);
+  Color get deepPurpleA700 => Color.fromRGBO(212, 157, 47, 1);
 // Gray
   Color get gray800 => Color(0XFF444444);
   Color get gray80002 => Color(0XFF3E3E3E);
@@ -127,4 +127,6 @@ class LightCodeColors {
   Color get greenA700 => Color(0XFF00C107);
 // White
   Color get whiteA700 => Color(0XFFFFFFFF);
+
+  get primaryColor => null;
 }

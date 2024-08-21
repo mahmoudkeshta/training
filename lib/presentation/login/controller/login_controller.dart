@@ -58,16 +58,18 @@ class LogController1 extends LoginController {
 
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == "success") {
-          Get.toNamed(AppRoutes.homeContainerScreen);
-         myservices.sharedPreferences.setString("id", response['data']['id']);
-       
-        myservices.sharedPreferences.setString("username", response['data']['users_name']);
+         
+      //   myservices.sharedPreferences.setString("id", response['data']['id']);
+      
+      //  myservices.sharedPreferences.setString("username", response['data']['users_name']);
             
         myservices.sharedPreferences.setString("email", response['data']['users_email']);
-        myservices.sharedPreferences.setString("phone", response['data']['users_phone']);
-        myservices.sharedPreferences.setString("step", "2");
-      
-       
+      //  myservices.sharedPreferences.setString("phone", response['data']['users_phone']);
+      //  myservices.sharedPreferences.setString("step", "2");
+        
+       Get.toNamed(AppRoutes.homeContainerScreen);
+
+
     // myservices.sharedPreferences.setString(key, value)
       } else {
         Get.defaultDialog(title: "Warning", middleText: "Phone number already exists");

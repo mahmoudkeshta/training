@@ -1,38 +1,52 @@
- import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
-import 'package:training/presentation/home_page/models/department.dart';
-import 'package:training/presentation/home_page/models/home_model.dart';
+import 'package:training/presentation/showcourse/models/coursemedia.dart';
 import '../../../core/app_export.dart';
 import '../controller/home_controller.dart';
-import '../models/viewhierarchy1_item_model.dart'; // ignore: must_be_immutable
-// ignore_for_file: must_be_immutable
 
-// ignore_for_file: must_be_immutable
-class Viewhierarchy1ItemWidget extends StatelessWidget {
- course Course;
- coursedetails Coursedetails;
-   department Department;
-  // ignore: use_super_parameters
-  Viewhierarchy1ItemWidget(//this.viewhierarchy1ItemModelObj,
-   {Key? key, required this.Course
-  , required this.Coursedetails
-  , required this.Department
-  })
-      : super(
-          key: key,
-        );
- final HomeController controller = Get.put(HomeControllerImp(HomeModel().obs));
-  //Viewhierarchy1ItemModel viewhierarchy1ItemModelObj;
+class Viewhierarchy1ItemWidget extends StatefulWidget {
+  final course Course;
+  final coursedetails Coursedetails;
+  final coursemedia Coursemedia;
 
-  //var controller = Get.find<HomeController>();
+  const Viewhierarchy1ItemWidget({
+    Key? key,
+    required this.Course,
+    required this.Coursedetails,
+    required this.Coursemedia,
+  }) : super(key: key);
+
+  @override
+  _Viewhierarchy1ItemWidgetState createState() => _Viewhierarchy1ItemWidgetState();
+}
+
+class _Viewhierarchy1ItemWidgetState extends State<Viewhierarchy1ItemWidget> {
+  final HomeController controller = Get.find<HomeController>();
+  bool _isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Start the animation automatically when the page loads
+    Future.delayed(Duration(milliseconds: 100), () {
+      setState(() {
+        _isExpanded = true;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      child: SizedBox(
-        width: 230.h,
+      onTap: () {
+        controller.gotoshowcourse(widget.Course, widget.Coursedetails, widget.Coursemedia);
+      },
+      child: AnimatedContainer(
+        duration: Duration(seconds: 4), // Duration of the animation
+        curve: Curves.bounceOut, // Animation curve
+        width: _isExpanded ? 230.h : 200.h, // Adjust width based on _isExpanded
         child: Align(
           alignment: Alignment.centerRight,
           child: Container(
@@ -43,65 +57,41 @@ class Viewhierarchy1ItemWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  curve: Curves.easeInOut,
                   height: 133.v,
                   width: 230.h,
                   decoration: AppDecoration.fillPrimary.copyWith(
                     borderRadius: BorderRadiusStyle.customBorderTL10,
                   ),
-                  child: //Obx( () => 
-                    CustomImageView(
-                      imagePath:    "${Course.imageCourese}",
-                      //ImageConstant.imageNotFound,
-                         // viewhierarchy1ItemModelObj.dataScienceImag!.value,
-                      height: 133.v,
-                      width: 230.h,
-                      radius: BorderRadius.vertical(
-                        top: Radius.circular(10.h),
-                      ),
-                      alignment: Alignment.center,
+                  child: CustomImageView(
+                    imagePath: widget.Course.imageCourese,
+                    height: 133.v,
+                    width: 230.h,
+                    radius: BorderRadius.vertical(
+                      top: Radius.circular(10.h),
                     ),
-                 // ),
+                    alignment: Alignment.center,
+                  ),
                 ),
-                SizedBox(height: 1.v),
+                SizedBox(height: 0.5.v),
                 Padding(
                   padding: EdgeInsets.only(left: 5.h),
-                  child: 
-                  //Obx(
-                    //() => 
-                    Text(
-                     "${Course.title}",
-                         
-                        /**
-                         *   controller.course.isNotEmpty
-                            ? Course.title ?? "Course"
-                            : "Loading...",
-                         */
-          
-            
-                    //  viewhierarchy1ItemModelObj.dataScienceText!.value,
-                      style: CustomTextStyles.bodyLargeGray80002,
-                    ),
+                  child: Text(
+                    "${widget.Course.title}",
+                    style: CustomTextStyles.bodyLargeGray80002,
                   ),
-               // ),
+                ),
                 SizedBox(height: 2.v),
                 Padding(
                   padding: EdgeInsets.only(left: 5.h),
                   child: Row(
                     children: [
-                    //  Obx(() => 
-                        Text(
-                        "${Course.evaluation}", 
-                         
-                        /**
-                         *   controller.course.isNotEmpty
-                            ? Course.evaluation ?? "No evaluation"
-                            : "Loading...",
-                         */
-                        //  viewhierarchy1ItemModelObj.ratingText!.value,
-                          style: CustomTextStyles.bodySmallGray80002,
-                        ),
-                    //  ),
+                      Text(
+                        "${widget.Course.evaluation}",
+                        style: CustomTextStyles.bodySmallGray80002,
+                      ),
                       CustomImageView(
                         imagePath: ImageConstant.imgStar,
                         height: 14.adaptSize,
@@ -110,27 +100,19 @@ class Viewhierarchy1ItemWidget extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 23.h),
-                        child: //Obx( () => 
-                        Text(
-                          "k",
-                            //viewhierarchy1ItemModelObj.learnerText!.value,
-                            style: CustomTextStyles.bodySmallGray80002,
-                          ),
+                        child: Text(
+                          "10.5k Learners",
+                          style: CustomTextStyles.bodySmallGray80002,
                         ),
-                     // )
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(height: 6.v)
               ],
             ),
           ),
         ),
       ),
-      onTap: (){
-
-        controller.gotoshowcourse(Course,Coursedetails,Department);
-      },
     );
   }
 }

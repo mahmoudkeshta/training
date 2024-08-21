@@ -5,9 +5,13 @@ import 'package:get/get.dart';
 
 import 'package:training/presentation/home_page/controller/home_controller.dart';
 import 'package:training/presentation/home_page/models/HandlingDataview.dart';
+import 'package:training/presentation/home_page/models/course.dart';
+import 'package:training/presentation/home_page/models/coursedetails.dart';
 
 import 'package:training/presentation/home_page/models/home_model.dart';
+import 'package:training/presentation/showcourse/VideoPlayerScreen.dart';
 import 'package:training/presentation/showcourse/controller/showcoursecontroller.dart';
+import 'package:training/presentation/showcourse/models/coursemedia.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -19,6 +23,7 @@ class CourseDetailScreen extends StatelessWidget {
 
  final showcoursecontrollerImg controller = Get.put(showcoursecontrollerImg());
   var arguments = Get.arguments;
+
   // String   course = Get.arguments['Course'] ; 
 
  //final Course = Get.Course;
@@ -52,7 +57,8 @@ class CourseDetailScreen extends StatelessWidget {
             Row(
               children: [
                 Icon(Icons.star, color: Colors.orange),
-                Text(  "${controller.Course.evaluation}",style: TextStyle(color: Colors.black87),),
+                Text(  "${controller.Course.evaluation}"
+                ,style: TextStyle(color: Colors.black87),),
                 SizedBox(width: 16),
                 Text('10.5k Learners',style: TextStyle(color: Colors.black87),),
                 ],
@@ -62,7 +68,7 @@ class CourseDetailScreen extends StatelessWidget {
               tabs: [
                 Tab(text: 'Overview', ),
                 Tab(text: 'Lectures'),
-                Tab(text: 'Similar Courses'),
+                Tab(text: 'Dates Courses'),
               ],
               labelColor: Colors.black,
               indicatorColor: Colors.blue,
@@ -89,6 +95,7 @@ class OverviewTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return 
     
     
@@ -132,7 +139,13 @@ class OverviewTab extends StatelessWidget {
             SizedBox(height: 16),
             Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+  var arguments = Get.arguments;
+
+    final String zoomUrl = "${controller.Coursedetails.courseURL}";
+
+                 controller.launchURL(zoomUrl);
+                },
                 child: Text('Start Learning',style: TextStyle(color: Colors.black87),),
               ),
             ),
@@ -145,58 +158,90 @@ class OverviewTab extends StatelessWidget {
 }
 
 
+
+
 class LecturesTab extends StatelessWidget {
- final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
-  
+   final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
+// Assuming HomeController extends GetxController
+
+
   @override
   Widget build(BuildContext context) {
-    return HandlingDataview(statusRequest: controller1.statusRequest, widget: 
-    SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            ExpansionTile(
-              title: Text('Lesson 1'),
-              subtitle: Text('Introduction'),
-              children: <Widget>[
-                ListTile(title: Text('Sub lecture 1')),
-              ],
-            ),
-            ExpansionTile(
-              title: Text('Lesson 2'),
-              subtitle: Text('Data Preprocessing'),
-              children: <Widget>[
-                ListTile(title: Text('Sub lecture 1')),
-                ListTile(title: Text('Sub lecture 2')),
-                ListTile(title: Text('Sub lecture 3')),
-                ListTile(title: Text('Sub lecture 4')),
-              ],
-            ),
-            ExpansionTile(
-              title: Text('Lesson 3'),
-              subtitle: Text('Text Mining'),
-              children: <Widget>[
-                ListTile(title: Text('Sub lecture 1')),
-              ],
-            ),
-            ExpansionTile(
-              title: Text('Lesson 4'),
-              subtitle: Text('Practice Projects'),
-              children: <Widget>[
-                ListTile(title: Text('Sub lecture 1')),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ));
+    return GetBuilder<HomeController>(
+      
+      init: controller1,
+      builder: (controller) {
+        
+        return HandlingDataview(
+          statusRequest: controller.statusRequest, // Assuming statusRequest is a property in HomeController
+          widget: ListView.builder(
+            
+            padding: const EdgeInsets.all(16.0),
+               itemCount: controller.coursemedia1.length,
+            itemBuilder: (BuildContext context, int index) { return
+         
+            Show(Coursemedia: coursemedia.fromJson(controller.coursemedia1[index]),
+              Course: course.fromJson(controller.course1[index]),);
+             },
+           
+          ),
+        );
+      },
+    );
+  }
+}
+
+class Show extends StatelessWidget {
+ final HomeController controller = Get.put(HomeControllerImp(HomeModel().obs));
+coursemedia Coursemedia;
+ course Course;
+ 
+final showcoursecontrollerImg controller1 = Get.put(showcoursecontrollerImg());
+  var arguments = Get.arguments;
+
+
+   Show({
+    super.key,
+    required this.Coursemedia
+    ,required this.Course
+  });
+
+  @override
+  Widget build(BuildContext context) {
+ 
+    return 
+      Coursemedia.courseID==controller1.Course.courseID ?
+    ExpansionTile(
+    title: Text(
+       "${Coursemedia.mediaType}",
+    )
+    ,
+    subtitle: Text("${Coursemedia.description}"),
+    children: <Widget>[
+    //  ListTile(title: Text("${Coursemedia.mediaURL}")),
+    ListTile(title: 
+    InkWell(child: Text('Sub lecture 2')),onTap: () {
+      Coursemedia.mediaURL != ""?
+      Get.to(VideoPlayerScreen(videoUrl: '${Coursemedia.mediaURL}',) ):  Get.snackbar(
+        'Error',
+        'No content available',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    },),
+   //   ListTile(title: Text('Sub lecture 3')),
+   //   ListTile(title: Text('Sub lecture 4')),
+    ],
+              ):Container();
   }
 }
 
 class SimilarCoursesTab extends StatelessWidget {
   final showcoursecontrollerImg controller = Get.put(showcoursecontrollerImg());
  final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
+  var arguments = Get.arguments;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -208,14 +253,15 @@ class SimilarCoursesTab extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+             
             Text(
-              'Similar Courses',
+              'Dates Courses',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 4.0),
             Table(
               border: TableBorder.all(
                 color: Colors.grey,
@@ -229,19 +275,20 @@ class SimilarCoursesTab extends StatelessWidget {
                 _buildTableRow('End Date', '2024-06-15', Colors.yellow),
  */
               //  _buildTableRow('Evaluation', '4.1', Colors.red),
-                _buildTableRow('Admin Name', '${controller.Coursedetails.adminName}', Colors.purple),
+                _buildTableRow('Admin Name', "${controller.Coursedetails.adminName}", Colors.purple),
               //  _buildTableRow('Course Title', 'Course 2', Colors.blue),
                 _buildTableRow('Session Date', '${controller.Coursedetails.sessionDate}', Colors.green),
                 _buildTableRow('Start Date', '${controller.Coursedetails.startDate}', const Color.fromARGB(255, 255, 152, 0)),
                 _buildTableRow('End Date', '${controller.Coursedetails.endDate}', Colors.yellow),
                 _buildTableRow('Day Of Week', '${controller.Coursedetails.dayOfWeek}', Colors.purple),
-                _buildTableRow('course URL', '${controller.Coursedetails.courseURL}', Colors.purple),
+              //  _buildTableRow('course URL', '${controller.Coursedetails.courseURL}', Colors.purple),
               ],
             ),
           ],
         ),
       ),
-      )  );
+     ) 
+       );
   }
 
   TableRow _buildTableRow(String label, String value, Color color) {

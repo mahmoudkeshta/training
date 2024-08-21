@@ -8,6 +8,7 @@ import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
 import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
+import 'package:training/presentation/showcourse/models/coursemedia.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/appbar_trailing_image.dart';
@@ -76,6 +77,7 @@ Widget build(BuildContext context) {
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       height: 54.v,
+      
       title: AppbarSubtitle(
         text:
          "lbl_hello_liza".tr,
@@ -85,6 +87,7 @@ Widget build(BuildContext context) {
         AppbarTrailingImage(
           imagePath: ImageConstant.imgSearch,
           margin: EdgeInsets.fromLTRB(30.h, 17.v, 30.h, 19.v),
+          
         )
       ],
     );
@@ -186,13 +189,19 @@ Widget build(BuildContext context) {
                   },
                   itemCount: controller.homeModelObj.value.viewhierarchyItemList.value.length,//controller.department.length,
                   itemBuilder: (context, index) {
-                 
+                               if (index >= controller.course1.length ||
+    index >= controller.coursedetails1.length ||
+    index >= controller.department1.length ||
+    index >= controller.coursemedia1.length // Make sure to add this check as well
+) {
+  return SizedBox(); // Return an empty box or handle the error gracefully
+}
                     ViewhierarchyItemModel model = controller
                         .homeModelObj.value.viewhierarchyItemList.value[index];
                        return   HandlingDataview(statusRequest: controller.statusRequest, widget: 
                         
                    ViewhierarchyItemWidget(
-                      model, dep: department.fromJson(controller.department1[index]),
+                      model, Department: department.fromJson(controller.department1[index]), Course: course.fromJson(controller.course1[index]),
                       
                     ));
                   },
@@ -268,7 +277,13 @@ Widget build(BuildContext context) {
                         .homeModelObj.value.viewhierarchy1ItemList.value[index];
                 
                */
-                   
+                    if (index >= controller.course1.length ||
+    index >= controller.coursedetails1.length ||
+    
+    index >= controller.coursemedia1.length // Make sure to add this check as well
+) {
+  return SizedBox(); // Return an empty box or handle the error gracefully
+}
                 
                     return  //Text("${controller.Department[index]}");
                     
@@ -278,7 +293,8 @@ Widget build(BuildContext context) {
                    //model,
                     Course: course.fromJson(controller.course1[index]),
                     Coursedetails:coursedetails.fromJson(controller.coursedetails1[index]), 
-                    Department:department.fromJson(controller.course1[index]),
+                   // Department:department.fromJson(controller.department1[index]), 
+                    Coursemedia: coursemedia.fromJson(controller.coursemedia1[index]),
                     ); 
                  },
               )  );
@@ -311,7 +327,8 @@ Widget build(BuildContext context) {
             height:142.v, //121.v,
             child:// Obx(
               //() => 
-              ListView.separated(
+              GetBuilder<HomeController>(builder: (controller){
+            return ListView.separated(
                 padding: EdgeInsets.only(left: 25.h),
                 scrollDirection: Axis.horizontal,
                 separatorBuilder: (context, index) {
@@ -319,18 +336,21 @@ Widget build(BuildContext context) {
                     width: 15.h,
                   );
                 },
-                itemCount:controller.popular_bloggers.length, //controller.homeModelObj.value.userprofileItemList.value.length,
+                itemCount:controller.popular_bloggers1.length, //controller.homeModelObj.value.userprofileItemList.value.length,
                 itemBuilder: (context, index) {
-                  UserprofileItemModel model = controller
+/**
+ *                   UserprofileItemModel model = controller
                       .homeModelObj.value.userprofileItemList.value[index];
+ */
                   return UserprofileItemWidget(
-                    model, popular: popular_bloggers.fromJson(controller.popular_bloggers[index]),
+                   // model, 
+                    popular: popular_bloggers.fromJson(controller.popular_bloggers1[index]),
                   );
                 },
-              ),
+              );}
             ),
           ),
-      //  )
+       )
       ],
     );
 

@@ -15,7 +15,9 @@ class coursedetails {
   String? dayOfWeekArabic;
   String? courseDate;
   String? userName;
+  int? id;
   String? courseURL;
+  String? videoURL;
 
   coursedetails(
       {this.courseID,
@@ -34,7 +36,9 @@ class coursedetails {
       this.dayOfWeekArabic,
       this.courseDate,
       this.userName,
-      this.courseURL});
+      this.id,
+      this.courseURL,
+      this.videoURL});
 
   coursedetails.fromJson(Map<String, dynamic> json) {
     courseID = json['CourseID'];
@@ -53,7 +57,9 @@ class coursedetails {
     dayOfWeekArabic = json['DayOfWeekArabic'];
     courseDate = json['CourseDate'];
     userName = json['UserName'];
+    id = json['id'];
     courseURL = json['CourseURL'];
+    videoURL = json['VideoURL'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,7 +80,9 @@ class coursedetails {
     data['DayOfWeekArabic'] = this.dayOfWeekArabic;
     data['CourseDate'] = this.courseDate;
     data['UserName'] = this.userName;
+    data['id'] = this.id;
     data['CourseURL'] = this.courseURL;
+    data['VideoURL'] = this.videoURL;
     return data;
   }
 }

@@ -1,92 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:training/presentation/home_page/models/home_model.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
 import '../../../core/app_export.dart';
 import '../controller/home_controller.dart';
-import '../models/userprofile_item_model.dart'; // ignore: must_be_immutable
-// ignore_for_file: must_be_immutable
 
-// ignore_for_file: must_be_immutable
-class UserprofileItemWidget extends StatelessWidget {
-  popular_bloggers popular;
-  UserprofileItemWidget(this.userprofileItemModelObj, {Key? key, required this.popular})
-      : super(
-          key: key,
-        );
+class UserprofileItemWidget extends StatefulWidget {
+  final popular_bloggers popular;
 
-  UserprofileItemModel userprofileItemModelObj;
+  UserprofileItemWidget({
+    Key? key,
+    required this.popular,
+  }) : super(key: key);
 
- 
+  @override
+  _UserprofileItemWidgetState createState() => _UserprofileItemWidgetState();
+}
+
+class _UserprofileItemWidgetState extends State<UserprofileItemWidget> {
+  final HomeController controller = Get.put(HomeControllerImp(HomeModel().obs));
+  bool _isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // بدء الرسوم المتحركة تلقائيًا عند تحميل الصفحة
+    Future.delayed(Duration(milliseconds: 100), () {
+      setState(() {
+        _isExpanded = true;
+      });
+    });
+  }
+  
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 230.h,
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Container(
-          decoration: AppDecoration.outlineBlack.copyWith(
-            borderRadius: BorderRadiusStyle.roundedBorder10,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Obx(() =>
-                 CustomImageView(
-                  imagePath: userprofileItemModelObj.userImage!.value,
+    double width = _isExpanded ? 270 : 250; // تغيير العرض بناءً على الحالة
+
+    return InkWell(
+       
+      onDoubleTap: (){
+      
+       setState(() {
+          _isExpanded = !_isExpanded;
+     
+        });
+        
+      },
+      onTap: () {
+        controller.gotopopularbloggers(widget.popular);
+      },
+      child: AnimatedContainer(
+          curve: Curves.bounceOut,
+        duration: Duration(seconds: 1),
+        width: width,
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Container(
+            decoration: AppDecoration.outlineBlack.copyWith(
+              borderRadius: BorderRadiusStyle.roundedBorder10,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomImageView(
+                  imagePath: "${widget.popular.imageUrl}",
                   height: 121.v,
                   width: 117.h,
                   radius: BorderRadius.horizontal(
                     left: Radius.circular(10.h),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 9.h,
-                  top: 9.v,
-                  bottom: 7.v,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //Obx(() =>
-                       Text(
-                       "${popular.bloggerName}",
-                        //userprofileItemModelObj.username!.value,
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 9.h,
+                    top: 9.v,
+                    bottom: 7.v,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${widget.popular.bloggerName}",
                         style: CustomTextStyles.bodySmallGray80002Light,
                       ),
-                   // ),
-                    SizedBox(height: 2.v),
-                    SizedBox(
-                      width: 84.h,
-                      child: //Obx(
-                        //() => 
-                        Text(
-                        "${popular.title}",
-                    
-                         // userprofileItemModelObj.title!.value,
+                      SizedBox(height: 2.v),
+                      SizedBox(
+                        width: 84.h,
+                        child: Text(
+                          "${widget.popular.title}",
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: CustomTextStyles.bodySmallGray80002,
                         ),
-                     // ),
-                    ),
-                    SizedBox(
-                      width: 102.h,
-                      child: //Obx( () =>
-                         Text(
-                              "${popular.paragraphText}",
-                          //userprofileItemModelObj.description!.value,
+                      ),
+                      SizedBox(
+                        width: 102.h,
+                        child: Text(
+                          "${widget.popular.paragraphText}",
                           maxLines: 5,
                           overflow: TextOverflow.ellipsis,
                           style: CustomTextStyles.bodySmallGray800028,
                         ),
                       ),
-                   // )
-                  ],
+                    ],
+                  ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),

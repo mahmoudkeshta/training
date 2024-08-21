@@ -1,7 +1,11 @@
 
 
 
+import 'package:training/presentation/BloggerCard/BloggerCard.dart';
+import 'package:training/presentation/My%20Courses/mycourses.dart';
+import 'package:training/presentation/home_page/models/popular_bloggers.dart';
 import 'package:training/presentation/home_page/test.view.dart';
+import 'package:training/presentation/listDepartment/listDepartment.dart';
 import 'package:training/presentation/login/login.dart';
 import 'package:training/presentation/signup/models/crud.dart';
 import 'package:training/presentation/showcourse/showcourse.dart';
@@ -33,22 +37,25 @@ static const String t='/TestView';
 //--------------------home ----------------------------------
 
   static const String homePage = '/home_page';
+  static const String bloggerCard = '/BloggerCard';
+   static const String ListDepartment="/listDepartment";
 
 //--------------------------------------------------------------
-  static const String mycourses = '/mycourses';
+  static const String Mycourses = '/mycourses';
   static const String Login = '/LoginWidget';
 
   static const String iphone11ProMaxTwelvePage =
       '/iphone_11_pro_max_twelve_page';
 
   static const String iphone11ProMaxFourteenPage =
-      '/iphone_11_pro_max_fourteen_page';
+    '/iphone_11_pro_max_fourteen_page';
 
   static const String appNavigationScreen = '/app_navigation_screen';
   static const String show_course = '/CourseDetailScreen';
 
   static const String initialRoute = '/initialRoute';
   late Crud  crud;
+  late popular_bloggers bl;
   
   static List<GetPage> pages = [
      
@@ -84,6 +91,19 @@ static const String t='/TestView';
       page: () => CourseDetailScreen(),
    //   bindings: [AppNavigationBinding()],
     ),
+
+
+
+      GetPage(
+      name: Mycourses,
+      page: () => mycourses(),
+   //   bindings: [AppNavigationBinding()],
+    ),
+      GetPage(
+      name: bloggerCard,
+      page: () => BloggerCard(),
+   //   bindings: [AppNavigationBinding()],
+    ),
   GetPage(
       name: Verify1,
       page: () => Verify(),
@@ -107,7 +127,13 @@ static const String t='/TestView';
   bindings: [InitialBinding()],
 ),
 
+         GetPage(
       
+  name: ListDepartment,
+  page: () => listDepartment(),
+ // bindings: [InitialBinding()],
+),
+
 
     GetPage(
       name: initialRoute,

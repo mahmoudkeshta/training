@@ -3,9 +3,7 @@ import 'package:training/core/utils/image_constant.dart';
 import '../../../core/app_export.dart';
 
 /// This class is used in the [viewhierarchy_item_widget] screen.
-// ignore_for_file: must_be_immutable
 
-// ignore_for_file: must_be_immutable
 class ViewhierarchyItemModel {
   ViewhierarchyItemModel(
       {this.text1, this.text2, this.image1, this.image2, this.id}) {
