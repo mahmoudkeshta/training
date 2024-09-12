@@ -9,6 +9,7 @@ import 'package:training/presentation/home_page/controller/home_controller.dart'
 import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails1.dart';
 import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/home_model.dart';
 import 'package:training/presentation/listDepartment/listDepartment_controller.dart';
@@ -28,6 +29,7 @@ class listDepartment extends StatelessWidget {
   var arguments = Get.arguments;
 late course  Course ;
 late department Department;
+late int  selectcart;
 
   
 
@@ -35,6 +37,7 @@ late department Department;
   Widget build(BuildContext context) {
     coursedetails  Coursedetails ;
  late StatusRequest statusRequest;
+ 
 
  final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
 
@@ -61,7 +64,7 @@ late department Department;
               return 
               
               controller.Department.name==courseDetail.departmentName ?
-              CourseCard(Coursedetails: courseDetail, Coursemedia: coursemedia.fromJson(controller1.coursemedia1[index]), Course: course.fromJson(controller1.course1[index]),):    Container( 
+              CourseCard(Coursedetails: courseDetail, Coursemedia: coursemedia.fromJson(controller1.coursemedia1[index]), Course: course.fromJson(controller1.course1[index]), Coursedetails2: coursedetails2.fromJson(controller1.course1[index]),):    Container( 
                
             );
           
@@ -78,12 +81,14 @@ late department Department;
 
 class CourseCard extends StatelessWidget {
   final coursedetails  Coursedetails ;
+  final coursedetails2  Coursedetails2 ;
  course  Course ;
     coursemedia Coursemedia;
 
-  CourseCard({required this.Coursedetails,required this.Coursemedia,required this.Course});
+  CourseCard({required this.Coursedetails,required this.Coursemedia,required this.Course,required this.Coursedetails2});
  final listDepartment_controllerImg controller = Get.put(listDepartment_controllerImg());
  final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
+late int  selectcart;
     
   @override
   Widget build(BuildContext context) {
@@ -139,7 +144,9 @@ class CourseCard extends StatelessWidget {
       ),
       onTap: (){
         
-        controller1.gotoshowcourse(Course,Coursedetails,Coursemedia);
+
+       controller1.gotoshowcourse(Course,Coursedetails,Coursemedia,Coursedetails2//,selectcart
+       );
       },
     );
   }

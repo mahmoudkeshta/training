@@ -3,6 +3,7 @@ import 'package:training/core/app_export.dart';
 import 'package:training/core/network/handlingdata.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails1.dart';
 import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/showcourse/models/showc.dart';
 import 'package:training/presentation/showcourse/models/usercourseregistration.dart';
@@ -22,10 +23,13 @@ class showcoursecontrollerImg extends showcoursecontroller{
  late StatusRequest statusRequest;
  late course  Course ;
  late coursedetails Coursedetails ;
+late coursedetails2 Coursedetails2;
+
  //late department Department;
   late usercourseregistration Usercourseregistration;
   late TextEditingController phoneController;
 
+//late int  selectcart ;
   
   
 
@@ -37,6 +41,9 @@ intialData(){
 
  //Department =Get.arguments['Department'];
  Coursedetails =Get.arguments['Coursedetails'];
+ Coursedetails2 =Get.arguments['Coursedetails2'];
+// selectcart =Get.arguments['selectcart'];
+
   
 
 }

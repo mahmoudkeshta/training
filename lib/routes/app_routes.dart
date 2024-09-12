@@ -1,6 +1,7 @@
 
 
 
+import 'package:training/core/network/services.dart';
 import 'package:training/presentation/BloggerCard/BloggerCard.dart';
 import 'package:training/presentation/My%20Courses/mycourses.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
@@ -77,8 +78,10 @@ static const String t='/TestView';
       bindings: [AppNavigationBinding()],
     ),
      GetPage(
-      name: Login,
+      name: "/",
       page: () => LoginP(),
+      middlewares: [ AuthMiddleware()]
+      
    //   bindings: [AppNavigationBinding()],
     ),
        GetPage(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:training/core/app_export.dart';
 import 'package:training/core/network/handlingdata.dart';
 import 'package:training/core/network/linkapi.dart';
@@ -12,9 +13,13 @@ abstract class LoginController extends GetxController {
   Future<void> signUp();
   Future<void> goToSignUp1();
   forgetpassword();
+
+  
 }
 
 class LogController1 extends LoginController {
+  SharedPreferences ? sharepref;
+
   late StatusRequest statusRequest;
 
   late TextEditingController emailController;
@@ -39,8 +44,8 @@ class LogController1 extends LoginController {
 
   @override
   void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
+  //  emailController.dispose();
+   // passwordController.dispose();
     super.onClose();
   }
 
@@ -59,15 +64,15 @@ class LogController1 extends LoginController {
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == "success") {
          
-      //   myservices.sharedPreferences.setString("id", response['data']['id']);
+        myservices.sharedPreferences.setString("id", response['data']['id'].toString());
       
-      //  myservices.sharedPreferences.setString("username", response['data']['users_name']);
+        myservices.sharedPreferences.setString("username", response['data']['users_name']);
             
         myservices.sharedPreferences.setString("email", response['data']['users_email']);
-      //  myservices.sharedPreferences.setString("phone", response['data']['users_phone']);
-      //  myservices.sharedPreferences.setString("step", "2");
+        myservices.sharedPreferences.setString("phone", response['data']['users_phone']);
+        myservices.sharedPreferences.setString("step", "2");
         
-       Get.toNamed(AppRoutes.homeContainerScreen);
+       Get.offAllNamed(AppRoutes.homeContainerScreen);
 
 
     // myservices.sharedPreferences.setString(key, value)
@@ -95,4 +100,5 @@ class LogController1 extends LoginController {
   forgetpassword() {
   Get.toNamed(AppRoutes.CheckEmail);
   }
+ 
 }

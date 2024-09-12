@@ -1,8 +1,10 @@
 class AppLink {
-  static const String server = "http://192.168.8.190/ecommercecourse-PHP--master";// For Android Emulator
+  static const String server = "http://192.168.8.190/ecommercecourse-PHP--master";// For Android Emulator192.168.43.152
+  //static const String server = "http://192.168.43.152/ecommercecourse-PHP--master";// For Android Emulator192.168.43.152
   //static const String server = "http://172.15.11.74/ecommercecourse-PHP--master"; // For Android Emulator
   // static const String server = "http://localhost/ecommercecourse-PHP--master"; // For iOS Simulator
   static const String test = "$server/test.php";
+  static const String items = "$server/items.php";
     static const String key="API_KEY=3fwdfsdferff3";
   static const String test2 = "$server/test2.php";
   static const String signup = "$server/aurh/signup.php";
@@ -11,6 +13,7 @@ class AppLink {
   static const String checkemail = "$server/forgetpassword/checkemail.php";
   static const String resetpassword = "$server/forgetpassword/resetpassword.php";
   static const String verify = "$server/forgetpassword/verifycode.php";
+
 
   //-----------------------home---------------------------
 static const String home = "$server/home.php?$key";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +8,7 @@ import 'package:training/presentation/home_page/controller/home_controller.dart'
 import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails1.dart';
 
 import 'package:training/presentation/home_page/models/home_model.dart';
 import 'package:training/presentation/showcourse/VideoPlayerScreen.dart';
@@ -23,6 +25,7 @@ class CourseDetailScreen extends StatelessWidget {
 
  final showcoursecontrollerImg controller = Get.put(showcoursecontrollerImg());
   var arguments = Get.arguments;
+    late coursedetails2 Coursedetails2;
 
   // String   course = Get.arguments['Course'] ; 
 
@@ -35,13 +38,26 @@ class CourseDetailScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title:
+         Row(children: [
+
+            Text(
+            //"${controller.Coursedetails2.favorite}",
           
-            "${controller.Course.title}",
+           "${controller.Course.title}",
            // "l",
-          
+            overflow: TextOverflow.ellipsis,
            style: TextStyle(color: Colors.black),
           ),
+          Spacer(),
+        
+       IconButton(onPressed: (){}, icon: Icon(
+        controller.Coursedetails2.favorite ==1 ?
+      Icons.favorite :Icons.favorite_border_outlined
+       ),
+       color: Colors.red,)
+         ],)
+          
           
         ),
         body: Column(

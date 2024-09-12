@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:training/core/network/services.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/appbar_leading_image.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
@@ -16,12 +17,13 @@ class myprofile extends StatelessWidget {
 
   Iphone11ProMaxFourteenController controller = Get.put(
       Iphone11ProMaxFourteenController(Iphone11ProMaxFourteenModel().obs));
-
+Myservices myservices=Get.find();
   @override
   Widget build(BuildContext context) {
   
-
-  
+String? id = myservices.sharedPreferences.getString("id");
+String? username = myservices.sharedPreferences.getString("username");
+String? email = myservices.sharedPreferences.getString("email");
     
     return SafeArea(
       child: Scaffold(
@@ -62,14 +64,14 @@ class myprofile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${controller.username}',
+                          '${username}',
                          // "lbl_liza_horllow".tr,
                           style: CustomTextStyles.labelLargeGray80002,
                           selectionColor: Colors.black26,
                         ),
                         SizedBox(height: 2.v),
                         Text(
-                          "msg_lizahorllow_gmail_com".tr,
+                         "${email}",
                           style: CustomTextStyles.bodySmallGray80002,
                         )
                       ],
@@ -183,25 +185,32 @@ class myprofile extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 23.v),
-              Row(
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgClaritySignOutLine,
-                    height: 32.adaptSize,
-                    width: 32.adaptSize,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 18.h,
-                      top: 7.v,
-                      bottom: 2.v,
+              GestureDetector(
+                child: Row(
+                  children: [
+                    CustomImageView(
+                      imagePath: ImageConstant.imgClaritySignOutLine,
+                      height: 32.adaptSize,
+                      width: 32.adaptSize,
                     ),
-                    child: Text(
-                      "lbl_sign_out".tr,
-                      style: CustomTextStyles.bodyLargeGray80002,
-                    ),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 18.h,
+                        top: 7.v,
+                        bottom: 2.v,
+                      ),
+                      child: Text(
+                        "lbl_sign_out".tr,
+                        style: CustomTextStyles.bodyLargeGray80002,
+                      ),
+                    )
+                  ],
+                ),
+                onTap: (){
+                   myservices.sharedPreferences.clear();
+                  Get.offAllNamed('/');
+
+                },
               ),
               SizedBox(height: 5.v)
             ],

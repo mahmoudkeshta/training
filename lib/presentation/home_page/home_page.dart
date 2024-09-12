@@ -1,11 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:training/core/network/services.dart';
 import 'package:training/presentation/home_page/controller/test_controller.dart';
 import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/advertisements.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails1.dart';
 import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
 import 'package:training/presentation/showcourse/models/coursemedia.dart';
@@ -75,22 +77,25 @@ Widget build(BuildContext context) {
 
   /// Section Widget
   PreferredSizeWidget _buildAppBar() {
-    return CustomAppBar(
-      height: 54.v,
-      
-      title: AppbarSubtitle(
-        text:
-         "lbl_hello_liza".tr,
-        margin: EdgeInsets.only(left: 26.h),
-      ),
-      actions: [
-        AppbarTrailingImage(
-          imagePath: ImageConstant.imgSearch,
-          margin: EdgeInsets.fromLTRB(30.h, 17.v, 30.h, 19.v),
-          
-        )
-      ],
-    );
+Myservices myservices=Get.find();
+String? username = myservices.sharedPreferences.getString("username");
+  String? step = myservices.getStep();
+
+   return CustomAppBar(
+  height: 54.v,
+  title: AppbarSubtitle(
+    text: step != null ? "Welcome back ${username}" : "Welcome ${username}",
+    // "lbl_hello_liza".tr, // Uncomment and use this if you want to use translations
+    margin: EdgeInsets.only(left: 26.h),
+  ),
+  actions: [
+    AppbarTrailingImage(
+      imagePath: ImageConstant.imgSearch,
+      margin: EdgeInsets.fromLTRB(30.h, 17.v, 30.h, 19.v),
+    ),
+  ],
+);
+
   }
 
   /// Section Widget
@@ -215,8 +220,7 @@ Widget build(BuildContext context) {
     );
   }
 
-  /// Section Widget
-  Widget _buildTopCoursesSection() {
+    Widget _buildTopCoursesSection() {
     coursedetails  Coursedetails ;
     return 
     
@@ -267,7 +271,7 @@ Widget build(BuildContext context) {
                       width: 15.h,
                     );
                   },
-                  itemCount:controller.course1.length,
+                  itemCount:controller.coursed.length,
                  // controller.Department.length,
                 //  controller.homeModelObj.value.viewhierarchy1ItemList.value.length,
                   itemBuilder: (context, index) {
@@ -280,7 +284,9 @@ Widget build(BuildContext context) {
                     if (index >= controller.course1.length ||
     index >= controller.coursedetails1.length ||
     
-    index >= controller.coursemedia1.length // Make sure to add this check as well
+    index >= controller.coursemedia1.length ||
+    index >= controller.coursed.length 
+     // Make sure to add this check as well
 ) {
   return SizedBox(); // Return an empty box or handle the error gracefully
 }
@@ -295,6 +301,7 @@ Widget build(BuildContext context) {
                     Coursedetails:coursedetails.fromJson(controller.coursedetails1[index]), 
                    // Department:department.fromJson(controller.department1[index]), 
                     Coursemedia: coursemedia.fromJson(controller.coursemedia1[index]),
+                     Coursedetails2: coursedetails2.fromJson(controller.coursed[index]), 
                     ); 
                  },
               )  );
@@ -307,6 +314,8 @@ Widget build(BuildContext context) {
       ],
     );
   }
+
+
 
   /// Section Widget
   Widget _buildPopularBlogsSection() {

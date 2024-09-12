@@ -17,6 +17,11 @@ class Homedata{
   return response.fold((l) => l, (r) => r);
   }
   
+     getatiem(String usersid )async{
+   var response= await crud.postData(AppLink.items, {"usersid":usersid});
+  return response.fold((l) => l, (r) => r);
+  }
+  
   
   
 }

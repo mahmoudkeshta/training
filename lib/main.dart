@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         locale: Get.deviceLocale,
         fallbackLocale: Locale('en', 'US'),
         title: 'Your App Title',
-        initialRoute: AppRoutes.Login,
+      //  initialRoute: AppRoutes.Login,
         getPages: AppRoutes.pages,
       );
     });

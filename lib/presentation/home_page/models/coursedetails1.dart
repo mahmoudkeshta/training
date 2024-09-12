@@ -1,4 +1,4 @@
-class coursedetails {
+class coursedetails2 {
   int? courseID;
   String? courseTitle;
   String? courseDescription;
@@ -19,10 +19,10 @@ class coursedetails {
   String? courseURL;
   String? videoURL;
   int? idusers;
-  
+  int? favorite;
 
 
-  coursedetails(
+  coursedetails2(
       {this.courseID,
       this.courseTitle,
       this.courseDescription,
@@ -42,10 +42,11 @@ class coursedetails {
       this.id,
       this.courseURL,
       this.videoURL,
-      this.idusers
+      this.idusers,
+      this.favorite,
       });
 
-  coursedetails.fromJson(Map<String, dynamic> json) {
+  coursedetails2.fromJson(Map<String, dynamic> json) {
     courseID = json['CourseID'];
     courseTitle = json['CourseTitle'];
     courseDescription = json['CourseDescription'];
@@ -66,6 +67,7 @@ class coursedetails {
     courseURL = json['CourseURL'];
     videoURL = json['VideoURL'];
     idusers = json['idusers'];
+    favorite = json['favorite'];
   }
 
   Map<String, dynamic> toJson() {
@@ -90,6 +92,7 @@ class coursedetails {
     data['CourseURL'] = this.courseURL;
     data['VideoURL'] = this.videoURL;
     data['idusers'] = this.idusers;
+    data['favorite'] = this.idusers;
     return data;
   }
 }

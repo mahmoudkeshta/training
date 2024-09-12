@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:training/core/network/services.dart';
 import 'package:training/presentation/home_page/controller/home_controller.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails1.dart';
 import 'package:training/presentation/home_page/models/home_model.dart';
 import 'package:training/presentation/showcourse/models/coursemedia.dart';
+import 'package:training/presentation/showcourse/models/usercourseregistration.dart';
 import '../../../core/app_export.dart';
 import '../controller/iphone_11_pro_max_ten_controller.dart';
 
@@ -12,12 +15,18 @@ class CourselistItemWidget extends StatefulWidget {
   final course Course;
   final coursedetails Coursedetails;
   final coursemedia Coursemedia;
+  final usercourseregistration Usercourseregistration;
+ final coursedetails2 Coursedetails2;
+
+  
+int ?selectcart;
 
   CourselistItemWidget({
     Key? key,
     required this.Course,
     required this.Coursedetails,
-    required this.Coursemedia,
+    required this.Coursedetails2,
+    required this.Coursemedia, required this.Usercourseregistration,
   }) : super(key: key);
 
   @override
@@ -47,7 +56,24 @@ class _CourselistItemWidgetState extends State<CourselistItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
+Myservices myservices=Get.find();
+String? id = myservices.sharedPreferences.getString("id");
+String? username = myservices.sharedPreferences.getString("username");
+String? email = myservices.sharedPreferences.getString("email");
+
+    return 
+widget.Coursedetails.idusers.toString() == id 
+//widget.Usercourseregistration.userID.toString() == id 
+    //widget.Usercourseregistration.courseID.toString() == //courseID
+//&& 
+//widget.Usercourseregistration.courseID.toString() == widget.Course.courseID.toString()
+
+// '${id}'=="${controller1.Usercourseregistration.userID}"
+   // == 
+    ?  
+    
+    AnimatedContainer(
+      
       duration: Duration(seconds: 1), // مدة الحركة
       curve: Curves.easeInOut, // منحنى الحركة
       width: _isExpanded ? 400 : 50, // عرض الحاوية يتغير مع الحركة
@@ -150,7 +176,8 @@ class _CourselistItemWidgetState extends State<CourselistItemWidget> {
               ),
               onTap: () {
                 controller1.gotoshowcourse(
-                    widget.Course, widget.Coursedetails, widget.Coursemedia);
+                    widget.Course, widget.Coursedetails, widget.Coursemedia,widget.Coursedetails2//,widget.selectcart!
+                    );
               },
               onDoubleTap: () {    setState(() {
          _isExpanded = !_isExpanded;
@@ -164,6 +191,6 @@ class _CourselistItemWidgetState extends State<CourselistItemWidget> {
           ],
         ),
       ),
-    );
+    ):Container();
   }
 }

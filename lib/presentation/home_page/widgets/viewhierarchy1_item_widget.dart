@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails1.dart';
 import 'package:training/presentation/showcourse/models/coursemedia.dart';
 import '../../../core/app_export.dart';
 import '../controller/home_controller.dart';
@@ -10,13 +11,18 @@ class Viewhierarchy1ItemWidget extends StatefulWidget {
   final course Course;
   final coursedetails Coursedetails;
   final coursemedia Coursemedia;
-
+  final coursedetails2 Coursedetails2;
+ //final int selectcart;
+ 
   const Viewhierarchy1ItemWidget({
-    Key? key,
+    super.key,
     required this.Course,
     required this.Coursedetails,
+    required this.Coursedetails2,
     required this.Coursemedia,
-  }) : super(key: key);
+ //    required this.selectcart,
+
+  });
 
   @override
   _Viewhierarchy1ItemWidgetState createState() => _Viewhierarchy1ItemWidgetState();
@@ -41,7 +47,8 @@ class _Viewhierarchy1ItemWidgetState extends State<Viewhierarchy1ItemWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        controller.gotoshowcourse(widget.Course, widget.Coursedetails, widget.Coursemedia);
+        controller.gotoshowcourse(widget.Course, widget.Coursedetails, widget.Coursemedia,widget.Coursedetails2//,widget.selectcart
+        );
       },
       child: AnimatedContainer(
         duration: Duration(seconds: 4), // Duration of the animation
@@ -101,10 +108,13 @@ class _Viewhierarchy1ItemWidgetState extends State<Viewhierarchy1ItemWidget> {
                       Padding(
                         padding: EdgeInsets.only(left: 23.h),
                         child: Text(
-                          "10.5k Learners",
+                      //  "${widget.Coursedetails2.favorite}",
+                         "10.5k Learners",
                           style: CustomTextStyles.bodySmallGray80002,
                         ),
                       ),
+                      
+
                     ],
                   ),
                 ),

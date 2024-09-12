@@ -65,10 +65,10 @@ class LogController extends LoginPageController {
         });
         
     if (statusRequest == StatusRequest.success) {
-        Get.toNamed(AppRoutes.VerifyCodesinup );
+       
       if (response['status'] == "Success") {
        
-     
+      Get.toNamed(AppRoutes.VerifyCodesinup );
         
       } else {
         Get.defaultDialog(title: "Warning", middleText: "Phone number already exists");

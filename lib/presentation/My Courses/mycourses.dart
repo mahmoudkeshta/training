@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:training/core/network/services.dart';
 import 'package:training/presentation/home_page/controller/home_controller.dart';
 import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/home_page/models/coursedetails1.dart';
 import 'package:training/presentation/home_page/models/home_model.dart';
 import 'package:training/presentation/showcourse/controller/showcoursecontroller.dart';
 import 'package:training/presentation/showcourse/models/coursemedia.dart';
+import 'package:training/presentation/showcourse/models/usercourseregistration.dart';
 import 'package:training/presentation/signup/models/statusrequest.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
@@ -24,7 +27,7 @@ class mycourses extends StatelessWidget {
       Get.put(Iphone11ProMaxTenController(Iphone11ProMaxTenModel().obs));
   final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
  late StatusRequest statusRequest;
-
+Myservices myservices=Get.find();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -67,6 +70,7 @@ class mycourses extends StatelessWidget {
 
  Widget _buildCourseList() {
 
+String? id = myservices.sharedPreferences.getString("id");
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 24.h),
     child: GetBuilder<HomeController>(
@@ -86,19 +90,20 @@ class mycourses extends StatelessWidget {
                   child: Divider(
                     height: 1.v,
                     thickness: 1.v,
-                    color: appTheme.black900,
+                    color: appTheme.whiteA700,
                   ),
                 ),
               );
             },
             itemCount: controller1.course1.length, // Ensure the itemCount matches the list length
             itemBuilder: (context, index) {
-              if (index < controller1.course1.length) {
+              if (index < controller1.usercourseregistration1.length) {
                 return CourselistItemWidget(
                     Course: course.fromJson(controller1.course1[index]),
                     Coursedetails:coursedetails.fromJson(controller1.coursedetails1[index]), 
                    // Department:department.fromJson(controller.department1[index]), 
                     Coursemedia: coursemedia.fromJson(controller1.coursemedia1[index]),
+                     Usercourseregistration: usercourseregistration.fromJson(controller1.usercourseregistration1[index]), Coursedetails2: coursedetails2.fromJson(controller1.coursed[index]), 
                 );
               } else {
                 return SizedBox.shrink(); // Return an empty widget if index is out of bounds
