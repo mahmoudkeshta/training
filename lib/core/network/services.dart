@@ -24,13 +24,14 @@ class AuthMiddleware extends GetMiddleware {
 
  @override
 RouteSettings? redirect(String? route) {
-  print('Middleware triggered');
+  //print('Middleware triggered');
   String? step = myservices.getStep();
   print('Step: $step');
 
-  if (step != null && route != '/initialRoute') { // Add this check to avoid redundant navigation
-    return RouteSettings(name: '/initialRoute');
+  if (step == "1" && route != '/initialRoute') { // Add this check to avoid redundant navigation
+    return const RouteSettings(name: '/initialRoute');
   }
+  
   return null;
 }
 }

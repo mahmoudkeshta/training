@@ -1,13 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:training/core/app_export.dart';
-import 'package:training/core/network/handlingdata.dart';
-import 'package:training/presentation/home_page/models/course.dart';
-import 'package:training/presentation/home_page/models/coursedetails.dart';
-import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
-import 'package:training/presentation/showcourse/models/showc.dart';
-import 'package:training/presentation/showcourse/models/usercourseregistration.dart';
-import 'package:training/presentation/signup/models/statusrequest.dart';
 
 abstract class BloggerCard extends GetxController{
   

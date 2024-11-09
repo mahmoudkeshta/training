@@ -15,5 +15,13 @@ class Verification{
    });
   return response.fold((l) => l, (r) => r);
   }
+  r(String email,String verfiycode)async{
+   var response= await crud.postData(AppLink.verify, {
+   "users_email" : email ,
+    "users_verfiycode" :  verfiycode,
+    
+   });
+  return response.fold((l) => l, (r) => r);
+  }
   
 }

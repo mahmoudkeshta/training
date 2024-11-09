@@ -7,6 +7,8 @@ import 'package:training/presentation/resetpassword2/controller/resetpasswordCon
 class ResetPasswordPage extends StatelessWidget {
       final ResetPas co = Get.put(ResetPas());
 
+ ResetPasswordPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class ResetPasswordPage extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color.fromRGBO(255, 255, 255, 1),
         ),
         child: SingleChildScrollView(
@@ -22,8 +24,8 @@ class ResetPasswordPage extends StatelessWidget {
             children: [
               Column(
                 children: <Widget>[
-                  SizedBox(height: 144),
-                  Text(
+                  const SizedBox(height: 144),
+                  const Text(
                     'Reset Password',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -34,12 +36,12 @@ class ResetPasswordPage extends StatelessWidget {
                       height: 1,
                     ),
                   ),
-                  SizedBox(height: 102),
+                  const SizedBox(height: 102),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'Enter your email and new password',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -50,38 +52,38 @@ class ResetPasswordPage extends StatelessWidget {
                             height: 1,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         TextField(
                           controller: co.emailController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Email',
                             border: OutlineInputBorder(),
                           ),
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         TextField(
                           controller: co.passwordController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'New Password',
                             border: OutlineInputBorder(),
                           ),
                           obscureText: true,
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Obx(() => ElevatedButton(
                           onPressed: co.isButtonEnabled.value
                               ? () => co.resetPass()
                               : null,
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 32, vertical: 12),
                             backgroundColor: Colors.deepPurple,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Reset Password',
                             style: TextStyle(
                               fontSize: 25,
@@ -92,8 +94,8 @@ class ResetPasswordPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Didn\'t receive an email? Resend',
                     textAlign: TextAlign.center,
                     style: TextStyle(

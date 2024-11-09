@@ -6,10 +6,7 @@ import '../models/userprofilegrid_item_model.dart'; // ignore: must_be_immutable
 
 // ignore_for_file: must_be_immutable
 class UserprofilegridItemWidget extends StatelessWidget {
-  UserprofilegridItemWidget(this.userprofilegridItemModelObj, {Key? key})
-      : super(
-          key: key,
-        );
+  UserprofilegridItemWidget(this.userprofilegridItemModelObj, {super.key});
 
   UserprofilegridItemModel userprofilegridItemModelObj;
 

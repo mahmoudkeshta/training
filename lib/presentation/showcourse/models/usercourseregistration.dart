@@ -10,9 +10,9 @@ class usercourseregistration {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['UserID'] = this.userID;
-    data['CourseID'] = this.courseID;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['UserID'] = userID;
+    data['CourseID'] = courseID;
     return data;
   }
 }

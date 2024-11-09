@@ -3,7 +3,7 @@ class ImageConstant {
   // Image folder path
   static String imagePath = 'assets/images';
 
-// Home - Container images
+// Home - Container images   ImageConstant.vector2
   static String imgNavHome = '$imagePath/img_nav_home.svg';
   static String vector2 = '$imagePath/vector2.png';
   static String vector1 = '$imagePath/vector1.png';
@@ -17,7 +17,11 @@ class ImageConstant {
 
   static String imgNavMyProfile = '$imagePath/img_nav_my_profile.svg';
   static String m = '$imagePath/5.json';
+  static String r = '$imagePath/r.json';
+  static String s = '$imagePath/s.json';
   static String m1 = '$imagePath/2.json';
+  static String box = '$imagePath/box.json';
+  static String Net = '$imagePath/Net.json';
 
 // Home images
   static String imgSearch = '$imagePath/img_search.svg';

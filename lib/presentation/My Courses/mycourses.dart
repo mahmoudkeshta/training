@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:training/core/network/services.dart';
@@ -15,35 +16,36 @@ import '../../core/app_export.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/appbar_trailing_image.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
-import 'controller/iphone_11_pro_max_ten_controller.dart';
+import 'controller/mycourselistc.dart';
 import 'models/courselist_item_model.dart';
 import 'models/iphone_11_pro_max_ten_model.dart';
 import 'widgets/courselist_item_widget.dart'; // ignore_for_file: must_be_immutable
 
 class mycourses extends StatelessWidget {
-  mycourses({Key? key}) : super(key: key);
+  mycourses({super.key});
 
-  final Iphone11ProMaxTenController controller =
-      Get.put(Iphone11ProMaxTenController(Iphone11ProMaxTenModel().obs));
+  final mycourselistc controller =
+      Get.put(mycourselistc());
   final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
  late StatusRequest statusRequest;
 Myservices myservices=Get.find();
-  @override
+   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: appTheme.whiteA700,
         appBar: _buildAppBar(),
-        body: SingleChildScrollView(
-          child: Container(
-            width: double.maxFinite,
-            decoration: AppDecoration.fillWhiteA,
-            child: Column(
-              children: [
-                SizedBox(height: 10.v),
-                _buildCourseList(),
-              ],
-            ),
+        body: Container(
+          width: double.infinity,
+          decoration: AppDecoration.fillWhiteA,
+          child: Column(
+            children: [
+              SizedBox(height: 20.v),
+              // Using Expanded to allow CourselistItemWidget to fill the screen
+              Expanded(
+                child: CourselistItemWidget(),
+              ),
+            ],
           ),
         ),
       ),
@@ -57,18 +59,31 @@ Myservices myservices=Get.find();
         margin: EdgeInsets.only(left: 26.h),
       ),
       actions: [
-        AppbarTrailingImage(
+CachedNetworkImage(
+        imageUrl: "${ImageConstant.imgSearchGray80002}",
+        placeholder: (context, url) => CircularProgressIndicator(),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+       
+            height: 26.h,
+            width: 5.v,
+        
+     ),
+        
+    
+      ],
+    );
+  }
+
+/** Widget _buildCourseList() {
+ * 
+    AppbarTrailingImage(
           imagePath: ImageConstant.imgSearchGray80002,
           margin: EdgeInsets.symmetric(
             horizontal: 26.h,
             vertical: 5.v,
           ),
         )
-      ],
-    );
-  }
 
- Widget _buildCourseList() {
 
 String? id = myservices.sharedPreferences.getString("id");
   return Padding(
@@ -119,5 +134,5 @@ String? id = myservices.sharedPreferences.getString("id");
       },
     ),
   );
-}
+}**/
 }

@@ -15,8 +15,8 @@ class AppDecoration {
 // Gradient decorations
   static BoxDecoration get gradientOnPrimaryToDeepPurpleA => BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment(0.5, 0),
-          end: Alignment(0.5, 1),
+          begin: const Alignment(0.5, 0),
+          end: const Alignment(0.5, 1),
           colors: [theme.colorScheme.onPrimary, appTheme.deepPurpleA700],
         ),
       );
@@ -28,14 +28,14 @@ class AppDecoration {
             color: appTheme.black900.withOpacity(0.07),
             spreadRadius: 2.h,
             blurRadius: 2.h,
-            offset: Offset(
+            offset: const Offset(
               0,
               0,
             ),
           )
         ],
       );
-  static BoxDecoration get outlineBlack900 => BoxDecoration();
+  static BoxDecoration get outlineBlack900 => const BoxDecoration();
 }
 
 class BorderRadiusStyle {

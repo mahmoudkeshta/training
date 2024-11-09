@@ -15,7 +15,20 @@ class showc{
 
 
    });
+
+   
   return response.fold((l) => l, (r) => r);
   }
-  
+   showview(String CourseID)async{
+   var response= await crud.postData(AppLink.show, {
+
+    "CourseID" :  CourseID,
+    
+
+
+   });
+
+   
+  return response.fold((l) => l, (r) => r);
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:training/core/utils/image_constant.dart';
 
 import '../../../core/app_export.dart';
 import 'onlineworld_item_model.dart';

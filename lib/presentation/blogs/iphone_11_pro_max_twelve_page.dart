@@ -10,10 +10,7 @@ import 'widgets/userprofilegrid_item_widget.dart'; // ignore_for_file: must_be_i
 
 // ignore_for_file: must_be_immutable
 class Iphone11ProMaxTwelvePage extends StatelessWidget {
-  Iphone11ProMaxTwelvePage({Key? key})
-      : super(
-          key: key,
-        );
+  Iphone11ProMaxTwelvePage({super.key});
 
   Iphone11ProMaxTwelveController controller =
       Get.put(Iphone11ProMaxTwelveController(Iphone11ProMaxTwelveModel().obs));
@@ -39,7 +36,7 @@ class Iphone11ProMaxTwelvePage extends StatelessWidget {
                 mainAxisSpacing: 10.h,
                 crossAxisSpacing: 10.h,
               ),
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: controller.iphone11ProMaxTwelveModelObj.value
                   .userprofilegridItemList.value.length,
               itemBuilder: (context, index) {

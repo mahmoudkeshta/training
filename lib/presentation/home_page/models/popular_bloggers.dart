@@ -21,12 +21,12 @@ class popular_bloggers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['blogger_name'] = this.bloggerName;
-    data['title'] = this.title;
-    data['paragraph_text'] = this.paragraphText;
-    data['image_url'] = this.imageUrl;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['blogger_name'] = bloggerName;
+    data['title'] = title;
+    data['paragraph_text'] = paragraphText;
+    data['image_url'] = imageUrl;
     return data;
   }
 }

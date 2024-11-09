@@ -60,7 +60,7 @@ class LogController extends LoginPageController {
     );
    
     statusRequest = handlingData(response);
- Get.toNamed(AppRoutes.VerifyCodesinup, arguments:await {
+ Get.toNamed(AppRoutes.VerifyCodesinup, arguments:{
           "email":  emailController.text,
         });
         

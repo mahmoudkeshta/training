@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:training/core/network/handlingdata.dart';
 import 'package:training/presentation/admin/modle/Course.dart';
-import 'package:training/presentation/admin/modle/CourseMedia.dart';
-import 'package:training/presentation/home_page/models/course.dart';
 import 'package:training/presentation/home_page/models/coursedetails.dart';
 import 'package:training/presentation/home_page/models/department.dart';
 import 'package:training/presentation/home_page/models/homedata.dart';

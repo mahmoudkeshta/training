@@ -6,13 +6,15 @@ import 'package:training/core/utils/image_constant.dart';
 class CheckEmailPage extends StatelessWidget {
   final CheckEmail controller = Get.put(CheckEmail());
 
+ CheckEmailPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         child: SingleChildScrollView(
@@ -20,8 +22,8 @@ class CheckEmailPage extends StatelessWidget {
             children: [
               Column(
                 children: <Widget>[
-                  SizedBox(height: 144),
-                  Text(
+                  const SizedBox(height: 144),
+                  const Text(
                     'Check Email',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -31,12 +33,12 @@ class CheckEmailPage extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  SizedBox(height: 102),
+                  const SizedBox(height: 102),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 32.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'Enter your email address',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -46,30 +48,30 @@ class CheckEmailPage extends StatelessWidget {
                             fontWeight: FontWeight.normal,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         TextField(
                           controller: controller.emailCont,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Email',
                             border: OutlineInputBorder(),
                           ),
                           onChanged: (value) =>
                               controller.checkIfButtonShouldBeEnabled(),
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Obx(() => ElevatedButton(
                               onPressed: controller.isButtonEnabled.value
                                   ? () => controller.checkEmail()
                                   : null,
                               style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 32, vertical: 12),
                                 backgroundColor: Colors.deepPurple,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Check Email',
                                 style: TextStyle(
                                   fontSize: 25,

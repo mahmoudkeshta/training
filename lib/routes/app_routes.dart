@@ -2,14 +2,23 @@
 
 
 import 'package:training/core/network/services.dart';
+import 'package:training/localization/language.dart';
 import 'package:training/presentation/BloggerCard/BloggerCard.dart';
 import 'package:training/presentation/My%20Courses/mycourses.dart';
+import 'package:training/presentation/Search/search1.dart';
+import 'package:training/presentation/admin/admin.dart';
+import 'package:training/presentation/all_questions/ResultsScreen.dart';
+import 'package:training/presentation/cart/cart.dart';
+import 'package:training/presentation/cart/cartdata.dart';
+import 'package:training/presentation/favorite/FavoritesApp.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
 import 'package:training/presentation/home_page/test.view.dart';
 import 'package:training/presentation/listDepartment/listDepartment.dart';
 import 'package:training/presentation/login/login.dart';
+import 'package:training/presentation/showcourse/showcourse2.dart';
 import 'package:training/presentation/signup/models/crud.dart';
 import 'package:training/presentation/showcourse/showcourse.dart';
+import 'package:training/profile/profile.dart';
 
 import '../presentation/Verification/VerifyCodePage.dart';
 import '../presentation/Verifiy/Verify.dart';
@@ -44,6 +53,7 @@ static const String t='/TestView';
 //--------------------------------------------------------------
   static const String Mycourses = '/mycourses';
   static const String Login = '/LoginWidget';
+  static const String Login1= '/LoginP';
 
   static const String iphone11ProMaxTwelvePage =
       '/iphone_11_pro_max_twelve_page';
@@ -53,8 +63,22 @@ static const String t='/TestView';
 
   static const String appNavigationScreen = '/app_navigation_screen';
   static const String show_course = '/CourseDetailScreen';
+  static const String show_course2 = '/CourseDetailScreen2';
 
   static const String initialRoute = '/initialRoute';
+  static const String Favorites_App = '/FavoritesApp';
+
+  //----------
+  static const String CartItemWidget = '/CartItemWidget';
+  static const String Language = '/language';
+  static const String profilePage = '/ProfilePage';
+  static const String admin = '/Admin';
+  static const String resultsScreen = '/ResultsScreen';
+  static const String productListScreen = '/ProductListScreen';
+  
+
+
+  
   late Crud  crud;
   late popular_bloggers bl;
   
@@ -66,21 +90,50 @@ static const String t='/TestView';
       page: () => TestView(),
       bindings: [InitialBinding()],
     ),
-    */
+    */ GetPage(
+      name: productListScreen,
+      page: () =>  ProductListScreen(),
+    
+
+     
+    ),
+    
+      GetPage(
+      name: resultsScreen,
+      page: () =>  ResultsScreen(),
+    
+
+     
+    ),
+
+       GetPage(
+      name: admin,
+      page: () =>  Admin(),
+    
+
+     
+    ),
+     GetPage(
+      name: "/",
+      page: () =>  language(),
+    
+
+     
+    ),
     GetPage(
       name: homeContainerScreen,
-      page: () => HomeContainerScreen(),
+      page: () => const HomeContainerScreen(),
       bindings: [HomeContainerBinding()],
     ),
     GetPage(
       name: appNavigationScreen,
-      page: () => AppNavigationScreen(),
+      page: () => const AppNavigationScreen(),
       bindings: [AppNavigationBinding()],
     ),
      GetPage(
-      name: "/",
+      name: Login1,
       page: () => LoginP(),
-      middlewares: [ AuthMiddleware()]
+   middlewares: [ AuthMiddleware()]
       
    //   bindings: [AppNavigationBinding()],
     ),
@@ -89,9 +142,19 @@ static const String t='/TestView';
       page: () => VerifyCodePage(),
    //   bindings: [AppNavigationBinding()],
     ),
+        GetPage(
+      name: profilePage,
+      page: () => ProfilePage(),
+
+    ),
       GetPage(
       name: show_course,
       page: () => CourseDetailScreen(),
+   //   bindings: [AppNavigationBinding()],
+    ),
+       GetPage(
+      name: show_course2,
+      page: () => CourseDetailScreen2(),
    //   bindings: [AppNavigationBinding()],
     ),
 
@@ -140,8 +203,21 @@ static const String t='/TestView';
 
     GetPage(
       name: initialRoute,
-      page: () => HomeContainerScreen(),
+      page: () => const HomeContainerScreen(),
       bindings: [HomeContainerBinding()],
+
+    ),
+
+     GetPage(
+      name: CartItemWidget,
+      page: () => CartPage(),
+      bindings: [HomeContainerBinding()],
+    ),
+
+      GetPage(
+      name: Favorites_App,
+      page: () => FavoritesApp(),
+     // bindings: [HomeContainerBinding()],
     )
   ];
 }

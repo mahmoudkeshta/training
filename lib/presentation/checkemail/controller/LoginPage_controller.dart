@@ -45,13 +45,13 @@ late StatusRequest statusRequest;
     var response = await ch.check(emailCont.text);
  print('Response: $response'); 
     statusRequest = handlingData(response);
-    Get.toNamed(AppRoutes.Verify1, arguments:await {
-          "email":  emailCont.text,
-        });
+    
   
     if (statusRequest == StatusRequest.success) {
-      if (response['status'] == "success") {
-      
+      if (response['status'] == "Success") {
+      Get.toNamed(AppRoutes.Verify1, arguments:{
+          "email":  emailCont.text,
+        });
       } else {
         Get.defaultDialog(title: "Warning", middleText: "Phone number already exists");
         statusRequest = StatusRequest.failure;

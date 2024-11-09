@@ -1,4 +1,3 @@
-import 'package:training/presentation/login/binding/initialBinding.dart';
 
 import '../../../core/app_export.dart';
 import '../controller/home_container_controller.dart';

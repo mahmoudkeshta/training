@@ -1,60 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:training/presentation/home_page/models/HandlingDataview.dart';
+import 'package:training/presentation/home_page/models/coursedetails.dart';
+import 'package:training/presentation/signup/models/statusrequest.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'search_controller.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProductListScreen(),
-    );
-  }
-}
+class ProductListScreen extends StatelessWidget {
+  final TextEditingController? up;
 
-class ProductListScreen extends StatefulWidget {
-  @override
-  _ProductListScreenState createState() => _ProductListScreenState();
-}
+  ProductListScreen({super.key, this.up});
 
-class _ProductListScreenState extends State<ProductListScreen> {
-  // Sample product data
-  final List<Map<String, String>> products = [
-    {"name": "Laptop Surface Go", "description": "A lightweight laptop.", "category": "laptop"},
-    {"name": "Laptop Surface Pro", "description": "A powerful tablet.", "category": "laptop"},
-    {"name": "DSLR Camera", "description": "Capture stunning images.", "category": "camera"},
-    {"name": "Smartphone X", "description": "A powerful smartphone.", "category": "mobile"},
-    {"name": "Running Shoes", "description": "Perfect for running.", "category": "shoes"},
-  ];
-
-  String selectedCategory = 'laptop';
-  String searchQuery = '';
+  final controller = Get.put(SearchController1 ());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[800],
-        title: TextField(
-          decoration: InputDecoration(
+        backgroundColor: const Color.fromRGBO(212, 157, 47, 1),
+        title: TextFormField(
+          controller: up,
+          decoration: const InputDecoration(
             hintText: 'Find Product',
             hintStyle: TextStyle(color: Colors.white54),
             border: InputBorder.none,
           ),
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
           onChanged: (query) {
-            setState(() {
-              searchQuery = query;
-            });
+            controller.updateSearchText(query, category: controller.selectedCategory.value);
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: const Icon(Icons.search),
             onPressed: () {
-              // Handle notification icon press
+              controller.search();
             },
           ),
         ],
@@ -62,120 +42,123 @@ class _ProductListScreenState extends State<ProductListScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Category filter buttons
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildCategoryButton('laptop'),
-                _buildCategoryButton('camera'),
-                _buildCategoryButton('mobile'),
-                _buildCategoryButton('shoes'),
-              ],
-            ),
-          ),
-          
-          // Product Grid
+          _buildCategorySelector(),
           Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(8.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.7,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
-              ),
-              itemCount: _filteredProducts().length,
-              itemBuilder: (context, index) {
-                return _buildProductCard(_filteredProducts()[index]);
-              },
-            ),
+            child: Obx(() {
+              if (controller.statusRequest.value == StatusRequest.loading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (controller.data.isEmpty) {
+                return const Center(child: Text('No products found.'));
+              }
+              return GridView.builder(
+                padding: const EdgeInsets.all(8.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.7,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                ),
+                itemCount: controller.data.length,
+                itemBuilder: (context, index) {
+                  return _buildProductCard(controller.data[index]);
+                },
+              );
+            }),
           ),
         ],
       ),
     );
   }
 
-  // Category button builder
+  Widget _buildCategorySelector() {
+    const categories = ['All', 'Design', 'Programming', 'Languages', 'Health'];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: categories.map((category) => _buildCategoryButton(category)).toList(),
+      ),
+    );
+  }
+
   Widget _buildCategoryButton(String category) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          selectedCategory = category;
-        });
+        controller.selectedCategory.value = category == 'All' ? '' : category;
+        controller.search();
       },
       child: Column(
         children: [
           Text(
             category.toUpperCase(),
             style: TextStyle(
-              color: selectedCategory == category ? Colors.red : Colors.black,
-              fontWeight: selectedCategory == category ? FontWeight.bold : FontWeight.normal,
+              color: controller.selectedCategory.value == category ? Colors.red : Colors.black,
+              fontWeight: controller.selectedCategory.value == category ? FontWeight.bold : FontWeight.normal,
             ),
           ),
-          if (selectedCategory == category)
+          if (controller.selectedCategory.value == category)
             Container(
               width: 30,
               height: 2,
               color: Colors.red,
-            )
+            ),
         ],
       ),
     );
   }
 
-  // Product card builder
-  Widget _buildProductCard(Map<String, String> product) {
+  Widget _buildProductCard(coursedetails product) {
     return Card(
       elevation: 2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Image.asset(
-              'assets/laptop_image.png', // Add your own image asset here
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product['name']!,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
+      child: HandlingDataview(
+        statusRequest: controller.statusRequest.value,
+        widget: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            product.Image_courese != null
+                ? Image.network(
+                    product.Image_courese!,
+                    fit: BoxFit.cover,
+                    height: 150,
+                    width: double.infinity,
+                  )
+                : Container(
+                    height: 150,
+                    color: Colors.grey[300],
+                    child: const Center(child: Text('No Image')),
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis, // Prevent overflow
-                ),
-                SizedBox(height: 4),
-                Text(
-                  product['description']!,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.courseTitle ?? 'No Title',
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis, // Prevent overflow
-                ),
-              ],
+                  const SizedBox(height: 4),
+                  Text(
+                    product.departmentName ?? 'No Description',
+                    style: TextStyle(fontSize: 14.0, color: Colors.grey[600]),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Action for "View Details" button
+                    },
+                    child: const Text('View Details'),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-  }
-
-  // Filtering products based on category and search query
-  List<Map<String, String>> _filteredProducts() {
-    return products.where((product) {
-      final matchesCategory = product['category'] == selectedCategory;
-      final matchesSearch = product['name']!.toLowerCase().contains(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
-    }).toList();
   }
 }

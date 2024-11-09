@@ -31,6 +31,8 @@ late course  Course ;
 late department Department;
 late int  selectcart;
 
+  listDepartment({super.key});
+
   
 
   @override
@@ -58,7 +60,7 @@ late int  selectcart;
     index >= controller1.department1.length ||
     index >= controller1.coursemedia1.length // Make sure to add this check as well
 ) {
-  return SizedBox(); // Return an empty box or handle the error gracefully
+  return const SizedBox(); // Return an empty box or handle the error gracefully
 }
              
               return 
@@ -85,7 +87,7 @@ class CourseCard extends StatelessWidget {
  course  Course ;
     coursemedia Coursemedia;
 
-  CourseCard({required this.Coursedetails,required this.Coursemedia,required this.Course,required this.Coursedetails2});
+  CourseCard({super.key, required this.Coursedetails,required this.Coursemedia,required this.Course,required this.Coursedetails2});
  final listDepartment_controllerImg controller = Get.put(listDepartment_controllerImg());
  final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
 late int  selectcart;
@@ -94,9 +96,9 @@ late int  selectcart;
   Widget build(BuildContext context) {
     return InkWell(
       child:  Card(
-        margin: EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(8.0),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -107,27 +109,27 @@ late int  selectcart;
                     Text(
                      '${Coursedetails.courseTitle}',
                      // course.name,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
                         Text(
                          '${Coursedetails.evaluation}',
                          // '${course.rating}'
                           ),
-                        SizedBox(width: 4),
-                        Icon(Icons.star, color: Colors.orange, size: 16),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.star, color: Colors.orange, size: 16),
                       ],
                     ),
-                    SizedBox(height: 4),
-                    Text(//'${course.learners} Learners'
+                    const SizedBox(height: 4),
+                    const Text(//'${course.learners} Learners'
                     '',
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.network(

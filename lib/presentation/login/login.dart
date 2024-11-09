@@ -15,13 +15,15 @@ class LoginP extends StatelessWidget {
   final LogController1 controller = Get.put(LogController1());
   final _formKey = GlobalKey<FormState>();
 
+  LoginP({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color.fromRGBO(255, 255, 255, 1),
         ),
         child: SingleChildScrollView(
@@ -29,8 +31,8 @@ class LoginP extends StatelessWidget {
             children: [
               Column(
                 children: <Widget>[
-                  SizedBox(height: 144),
-                  Text(
+                  const SizedBox(height: 144),
+                  const Text(
                     'Hello',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -41,8 +43,8 @@ class LoginP extends StatelessWidget {
                       height: 1,
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'Sign in to your account',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -53,7 +55,7 @@ class LoginP extends StatelessWidget {
                       height: 1,
                     ),
                   ),
-                  SizedBox(height: 67),
+                  const SizedBox(height: 67),
                   Form(
                     key: _formKey,
                     child: Column(
@@ -64,7 +66,7 @@ class LoginP extends StatelessWidget {
                             controller: controller.emailController,
                             decoration: InputDecoration(
                               labelText: 'Email',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                 color: Color.fromRGBO(199, 199, 199, 1),
                                 fontFamily: 'Lato',
                                 fontSize: 15,
@@ -83,7 +85,7 @@ class LoginP extends StatelessWidget {
                             },
                           ),
                         ),
-                        SizedBox(height: 50),
+                        const SizedBox(height: 50),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 45),
                           child: TextFormField(
@@ -91,7 +93,7 @@ class LoginP extends StatelessWidget {
                             obscureText: true,
                             decoration: InputDecoration(
                               labelText: 'Password',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                 color: Color.fromRGBO(199, 199, 199, 1),
                                 fontFamily: 'Lato',
                                 fontSize: 15,
@@ -113,9 +115,9 @@ class LoginP extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   GestureDetector(
-                    child: Text(
+                    child: const Text(
                       'Forgot your password?',
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -130,7 +132,7 @@ class LoginP extends StatelessWidget {
                       controller.forgetpassword();
                     },
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   GetBuilder<LogController1>(
                     builder: (_) {
                       return ElevatedButton(
@@ -140,13 +142,13 @@ class LoginP extends StatelessWidget {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                           backgroundColor: Colors.deepPurple,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Sign In',
                           style: TextStyle(
                             fontSize: 25,
@@ -156,9 +158,9 @@ class LoginP extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   GestureDetector(
-                    child: Text(
+                    child: const Text(
                       'Don’t have an account? Create',
                       textAlign: TextAlign.center,
                       style: TextStyle(

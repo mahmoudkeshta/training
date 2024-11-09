@@ -9,10 +9,7 @@ import '../models/onlineworld_item_model.dart'; // ignore: must_be_immutable
 // ignore_for_file: must_be_immutable
 class OnlineworldItemWidget extends StatelessWidget {
   advertisements depar;
-  OnlineworldItemWidget(this.onlineworldItemModelObj, {Key? key,required this.depar})
-      : super(
-          key: key,
-        );
+  OnlineworldItemWidget(this.onlineworldItemModelObj, {super.key,required this.depar});
 
   OnlineworldItemModel onlineworldItemModelObj;
 

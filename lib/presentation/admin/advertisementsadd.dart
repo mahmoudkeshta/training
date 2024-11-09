@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RecordPage extends StatefulWidget {
+  const RecordPage({super.key});
+
   @override
   _RecordPageState createState() => _RecordPageState();
 }

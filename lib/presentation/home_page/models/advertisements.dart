@@ -30,15 +30,15 @@ class advertisements {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['start_date'] = this.startDate;
-    data['image_url'] = this.imageUrl;
-    data['end_date'] = this.endDate;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    data['start_date'] = startDate;
+    data['image_url'] = imageUrl;
+    data['end_date'] = endDate;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

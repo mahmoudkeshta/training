@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:training/core/network/services.dart';
 import 'package:training/presentation/admin/BlogPostPage.dart';
 import 'package:training/presentation/admin/Controller/CoursePageController.dart';
 import 'package:training/presentation/admin/advertisementsadd.dart';
 import 'package:training/presentation/admin/course.dart';
+import 'package:training/presentation/login/login.dart';
 import 'package:training/presentation/signup/models/crud.dart';
-
 import 'DepartmentPage.dart';
 
 void main() {
-    Get.put(Crud());
-
-  runApp(MyApp());
+  Get.put(Crud());
+  runApp(const Admin());
 }
 
-class MyApp extends StatelessWidget {
+class Admin extends StatelessWidget {
+  const Admin({super.key});
+
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'Admin Dashboard',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DashboardScreen(),
-       routes: {
+      home: const DashboardScreen(),
+      routes: {
         '/department': (context) => DepartmentPage(),
         '/course/courseadd': (context) => CoursePage(),
         '/course/coursedays': (context) => SchedulePage(),
@@ -35,175 +34,93 @@ class MyApp extends StatelessWidget {
         '/course/coursevideo': (context) => VideoPage(),
         '/advertisements': (context) => RecordPage(),
         '/popularbloggers': (context) => BlogPostPage(),
-        
-        // باقي المسارات
+        '/settings/Logout': (context) => LoginP(),
       },
     );
   }
 }
 
 class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return AdminScaffold(
+    Myservices myservices = Get.find();
+    String? admin2 = myservices.sharedPreferences.getString("admin");
+
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
       ),
-      sideBar: SideBar(
-        items: const [
-          AdminMenuItem(
-            title: 'Dashboard',
-            route: '/',
-            icon: Icons.dashboard,
-          ),
-        
-
-           AdminMenuItem(
-            title: 'advertisements',
-            route: '/advertisements',
-            icon: Icons.campaign,
-            
-          ),
-
-           
-           AdminMenuItem(
-            title: 'Course',
-            route: '/course',
-            icon: Icons.add_card,
-            children: [
-               AdminMenuItem(
-                title: 'courseadd',
-                route: '/course/courseadd',
-            icon: Icons.candlestick_chart,
-
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: CircleAvatar(
+                radius: 40,
+                backgroundColor: Colors.white,
+                child: Icon(Icons.person, size: 50, color: Colors.blue),
               ),
-              AdminMenuItem(
-                title: 'coursedays',
-                route: '/course/coursedays',
-            icon: Icons.calendar_view_day,
-
+            ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  _buildDrawerItem(context, Icons.dashboard, 'Dashboard', '/'),
+                  if (admin2 == "2")
+                    _buildDrawerItem(context, Icons.campaign, 'Advertisements', '/advertisements')
+                  else
+                    _buildDrawerItem(context, Icons.campaign, 'View Courses', ''),
+                  if (admin2 == "2")
+                    CourseExpansionTile()
+                  else
+                    _buildLimitedCourseExpansion(context),
+                  _buildDrawerItem(context, Icons.people_outline_sharp, 'Popular Bloggers', '/popularbloggers'),
+                  _buildUsersExpansion(context),
+                  _buildDrawerItem(context, Icons.person, 'Employee', '/employee'),
+                  if (admin2 == "2")
+                    _buildDrawerItem(context, Icons.dangerous_rounded, 'Department', '/department')
+                  else
+                    _buildDrawerItem(context, Icons.comment, 'Comment', '/comment'),
+                  _buildSettingsExpansion(context),
+                ],
               ),
-              AdminMenuItem(
-                title: 'coursemedia',
-                route: '/course/coursemedia',
-              ),
-          AdminMenuItem(
-                title: 'coursevideo',
-                route: '/course/coursevideo',
-              ),
-              AdminMenuItem(
-                title: 'onlinetraininglocation',
-                route: '/course/onlinetraininglocation',
-              ),
-
-            ],
-          ),
-
-          AdminMenuItem(
-            title: 'popular bloggers',
-            route: '/popularbloggers',
-            icon: Icons.people_outline_sharp,
-          ),
-
-             AdminMenuItem(
-            title: 'Users',
-            route: '/users',
-            icon: Icons.people_alt_sharp,
-
-             children: [
-              AdminMenuItem(
-                title: 'usercourseregistration',
-                route: '/users/usercourseregistration',
-            icon: Icons.people_outlined,
-
-              ),
-             
-
-            ],
-          ),
-
-            AdminMenuItem(
-            title: 'Employee',
-            route: '/employee',
-            icon: Icons.person,
-          ),
-  AdminMenuItem(
-            title: 'department',
-            route: '/department',
-            icon: Icons.dangerous_rounded,
-          ),
-
-             AdminMenuItem(
-            title: 'comment',
-            route: '/comment',
-            icon: Icons.comment,
-          ),
-         
-  AdminMenuItem(
-            title: 'Settings',
-            route: '/settings',
-            icon: Icons.settings,
-          ),
-        ],
-        selectedRoute: '/',
-        onSelected: (item) {
-           final route = item.route;
-  if (route != null) {
-    Navigator.pushNamed(context, route);
-  } else {
-    // Handle the case where route is null
-    // For example, you could show an error message or redirect to a default route
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Route is not defined')),
-    );
-  }
-        },
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                InfoCard(
-                  title: 'CPU Traffic',
-                  value: '90%',
-                  icon: Icons.memory,
-                  color: Colors.blue,
-                ),
-                InfoCard(
-                  title: 'Likes',
-                  value: '41,410',
-                  icon: Icons.thumb_up,
-                  color: Colors.red,
-                ),
-                InfoCard(
-                  title: 'Sales',
-                  value: '760',
-                  icon: Icons.shopping_cart,
-                  color: Colors.green,
-                ),
-                InfoCard(
-                  title: 'New Members',
-                  value: '2,000',
-                  icon: Icons.group,
-                  color: Colors.orange,
-                ),
-              ],
-            ),
+            admin2 == "2"
+                ? const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InfoCard(title: 'CPU Traffic', value: '90%', icon: Icons.memory, color: Colors.blue),
+                      InfoCard(title: 'Likes', value: '41,410', icon: Icons.thumb_up, color: Colors.red),
+                      InfoCard(title: 'Sales', value: '760', icon: Icons.shopping_cart, color: Colors.green),
+                      InfoCard(title: 'New Members', value: '2,000', icon: Icons.group, color: Colors.orange),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InfoCard(title: 'Likes', value: '41,410', icon: Icons.thumb_up, color: Colors.red),
+                      InfoCard(title: 'Sales', value: '760', icon: Icons.shopping_cart, color: Colors.green),
+                      InfoCard(title: 'New Members', value: '2,000', icon: Icons.group, color: Colors.orange),
+                    ],
+                  ),
             const SizedBox(height: 20),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    const Text(
-                      'Monthly Recap Report',
-                      style: TextStyle(fontSize: 18),
-                    ),
+                    const Text('Monthly Recap Report', style: TextStyle(fontSize: 18)),
                     const SizedBox(height: 10),
-                    Container(
+                    SizedBox(
                       height: 200,
                       child: LineChartWidget(),
                     ),
@@ -216,6 +133,85 @@ class DashboardScreen extends StatelessWidget {
       ),
     );
   }
+
+  ListTile _buildDrawerItem(BuildContext context, IconData icon, String title, String route) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: () {
+        Navigator.popAndPushNamed(context, route);
+      },
+    );
+  }
+
+  ExpansionTile _buildLimitedCourseExpansion(BuildContext context) {
+    return ExpansionTile(
+      leading: Icon(Icons.add_card),
+      title: Text('Course'),
+      children: [
+        _buildDrawerItem(context, Icons.insert_drive_file, 'Course Media', '/course/coursemedia'),
+        _buildDrawerItem(context, Icons.video_library, 'Course Video', '/course/coursevideo'),
+        _buildDrawerItem(context, Icons.location_on, 'Online Training Location', '/course/onlinetraininglocation'),
+      ],
+    );
+  }
+
+  ExpansionTile _buildUsersExpansion(BuildContext context) {
+    return ExpansionTile(
+      leading: Icon(Icons.people_alt_sharp),
+      title: Text('Users'),
+      children: [
+        _buildDrawerItem(context, Icons.people_outlined, 'User Course Registration', '/users/usercourseregistration'),
+      ],
+    );
+  }
+
+  ExpansionTile _buildSettingsExpansion(BuildContext context) {
+    return ExpansionTile(
+      leading: Icon(Icons.settings),
+      title: Text('Settings'),
+      children: [
+        _buildDrawerItem(context, Icons.logout, 'Log out', '/settings/Logout'),
+      ],
+    );
+  }
+}
+
+class CourseExpansionTile extends StatefulWidget {
+  @override
+  _CourseExpansionTileState createState() => _CourseExpansionTileState();
+}
+
+class _CourseExpansionTileState extends State<CourseExpansionTile> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      leading: Icon(Icons.add_card),
+      title: Text('Course'),
+      children: _isExpanded
+          ? [
+              _buildDrawerItem(context, Icons.candlestick_chart, 'Course Add', '/course/courseadd'),
+              _buildDrawerItem(context, Icons.calendar_view_day, 'Course Days', '/course/coursedays'),
+              _buildDrawerItem(context, Icons.insert_drive_file, 'Course Media', '/course/coursemedia'),
+              _buildDrawerItem(context, Icons.video_library, 'Course Video', '/course/coursevideo'),
+              _buildDrawerItem(context, Icons.location_on, 'Online Training Location', '/course/onlinetraininglocation'),
+            ]
+          : [],
+      onExpansionChanged: (bool expanding) => setState(() => _isExpanded = expanding),
+    );
+  }
+
+  ListTile _buildDrawerItem(BuildContext context, IconData icon, String title, String route) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: () {
+        Navigator.popAndPushNamed(context, route);
+      },
+    );
+  }
 }
 
 class InfoCard extends StatelessWidget {
@@ -225,6 +221,7 @@ class InfoCard extends StatelessWidget {
   final Color color;
 
   const InfoCard({
+    super.key,
     required this.title,
     required this.value,
     required this.icon,
@@ -241,14 +238,8 @@ class InfoCard extends StatelessWidget {
           children: [
             Icon(icon, size: 40, color: Colors.white),
             const SizedBox(height: 10),
-            Text(
-              title,
-              style: const TextStyle(color: Colors.white),
-            ),
-            Text(
-              value,
-              style: const TextStyle(color: Colors.white, fontSize: 18),
-            ),
+            Text(title, style: TextStyle(color: Colors.white)),
+            Text(value, style: TextStyle(color: Colors.white, fontSize: 16)),
           ],
         ),
       ),
@@ -257,6 +248,8 @@ class InfoCard extends StatelessWidget {
 }
 
 class LineChartWidget extends StatelessWidget {
+  const LineChartWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LineChart(
@@ -278,17 +271,12 @@ class LineChartWidget extends StatelessWidget {
             ),
           ),
         ],
-        titlesData: FlTitlesData(
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: true),
-          ),
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: true),
-          ),
+        titlesData: const FlTitlesData(
+          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
+          bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
         ),
         borderData: FlBorderData(show: true),
       ),
     );
   }
 }
-

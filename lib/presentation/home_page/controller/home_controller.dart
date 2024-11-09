@@ -13,6 +13,7 @@ import 'package:training/presentation/home_page/models/homedata.dart';
 import 'package:training/presentation/home_page/models/popular_bloggers.dart';
 import 'package:training/presentation/showcourse/models/coursemedia.dart';
 import 'package:training/presentation/showcourse/models/usercourseregistration.dart';
+import 'package:training/presentation/showcourse/showcourse2.dart';
 import 'package:training/presentation/signup/models/statusrequest.dart';
 import '../../../core/app_export.dart';
 import '../models/home_model.dart';
@@ -32,12 +33,25 @@ abstract class HomeController extends GetxController {
    List department1 = [];
    List coursemedia1 = [];
    List usercourseregistration1 = [];
+      List department2 = [];
+   List coursemedia2 = [];
+  List course2 = [];
+     List a= [];
+     List a1= [];
+     List a2= [];
+     List a3= [];
+     List a4= [];
+
+     List a6= [];
+
+
    
   var isLoading = true.obs;
   Rx<HomeModel> homeModelObj;
   Myservices myservices = Get.find();
 
   Homedata homedata = Homedata(Get.find());
+  String ? departmentN;
   String? username;
   String? id;
     course Course;
@@ -47,11 +61,19 @@ abstract class HomeController extends GetxController {
     department Department;
     coursemedia Coursemedia;
     usercourseregistration Usercourseregistration;
+
+     gotomycourse( course Course, coursedetails  Coursedetails,//department Department,
+  coursemedia Coursemedia, coursedetails2 Coursedetails2 //, int selectcart
+  );
   gotoshowcourse( course Course, coursedetails  Coursedetails,//department Department,
   coursemedia Coursemedia, coursedetails2 Coursedetails2 //, int selectcart
   );
+
+    gotoshowcourse2( coursedetails  Coursedetails,//department Department,
+  coursemedia Coursemedia, coursedetails2 Coursedetails2 //, int selectcart
+  );
     gotoshowcourse1(  coursedetails  Coursedetails, usercourseregistration Usercourseregistration);
-  gotopopularbloggers(popular_bloggers Popular_bloggers);
+  gotopopularbloggers(popular_bloggers popularBloggers);
   gotolistDepartment(course Course, department Department);
  late StatusRequest statusRequest;
 
@@ -60,7 +82,7 @@ am(double w);
   Rx<int> sliderIndex = 0.obs;
   initialData();
  void startAnimationTimer() {
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       isAnimationEnabled.value = true;
     });
   }
@@ -72,6 +94,11 @@ am(double w);
     getitem();
      startAnimationTimer();
 
+ getde("1",a) ;
+ getde("2",a1) ;
+ getde("3",a2) ;
+ getde("4",a3) ;
+ getde("6",a6) ;
     super.onInit();
   }
 
@@ -105,6 +132,33 @@ am(double w);
   }
 
 
+
+   getde(String m,List show) async {
+   statusRequest =  StatusRequest.loading;
+   // Update the UI to reflect loading state
+
+    var response = await homedata.getDe(m);
+
+   
+    statusRequest = handlingData(response);
+
+    if ( StatusRequest.success == statusRequest ) {
+    if(response['status']=="success"){
+   
+    show.addAll(response['data1']);
+  // print("..........$response");
+   
+
+    }else{
+      statusRequest = StatusRequest.failure;
+    }
+       update(); 
+    }
+
+  }
+
+
+
     getitem() async {
    statusRequest =  StatusRequest.loading;
    // Update the UI to reflect loading state
@@ -112,11 +166,11 @@ am(double w);
 var userId = myservices.sharedPreferences.getString("id").toString() ; 
     var response = await homedata.getatiem(userId);
    
-    statusRequest = handlingData(response);
+  statusRequest = handlingData(response);
 
     if ( StatusRequest.success == statusRequest ) {
     if(response['status']=="success"){
-   print("${response}");
+   print("$response");
     coursed.addAll(response['data']);
  
     }else{
@@ -138,7 +192,8 @@ var userId = myservices.sharedPreferences.getString("id").toString() ;
 
 class HomeControllerImp extends HomeController {
 
- int ? selectcart;
+ @override
+  int ? selectcart;
  
   HomeControllerImp(Rx<HomeModel> homeModelObj) : super(homeModelObj,course(),coursedetails(),department(),popular_bloggers(),coursemedia(),usercourseregistration(),coursedetails2());
   @override
@@ -163,14 +218,33 @@ class HomeControllerImp extends HomeController {
  //"selectcart":selectcart,
 
  });
+update();
+  }
+
+  
+
+  @override
+  // ignore: non_constant_identifier_names
+  gotomycourse(Course,Coursedetails//,Department
+  ,Coursemedia,Coursedetails2//,selectcart
+  ) {
+ Get.toNamed(AppRoutes.Mycourses,arguments: {
+  "Course":Course,
+  "Coursedetails":Coursedetails,
+  //"Department":Department,
+  "Coursemedia":Coursemedia,
+ "Coursedetails2":Coursedetails2,
+ //"selectcart":selectcart,
+
+ });
 
   }
   
   @override
-  gotopopularbloggers(Popular_bloggers) {
+  gotopopularbloggers(popularBloggers) {
     Get.toNamed(AppRoutes.bloggerCard,arguments: {
 
-      "Popular_bloggers":Popular_bloggers,
+      "Popular_bloggers":popularBloggers,
     });
   }
   
@@ -201,5 +275,18 @@ Get.toNamed(AppRoutes.show_course,arguments: {
   am(  w) {
   
   return w;
+  }
+  
+  @override
+  gotoshowcourse2(coursedetails Coursedetails, coursemedia Coursemedia, coursedetails2 Coursedetails2) {
+   Get.toNamed(AppRoutes.show_course2,arguments: {
+ // "Course":Course,
+  "Coursedetails":Coursedetails,
+  //"Department":Department,
+  "Coursemedia":Coursemedia,
+ "Coursedetails2":Coursedetails2,
+ //"selectcart":selectcart,
+
+ });
   }
 }

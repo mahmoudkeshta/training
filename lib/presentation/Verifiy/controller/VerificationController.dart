@@ -1,5 +1,5 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:training/core/network/services.dart';
 import 'package:training/presentation/Verification/models/Verification.dart';
 import 'package:training/core/app_export.dart';
 import 'package:training/core/network/handlingdata.dart';
@@ -11,6 +11,7 @@ class Verifica extends GetxController {
   late StatusRequest statusRequest;
   final codeControllers = List.generate(5, (index) => TextEditingController());
   var isButtonEnabled = false.obs; // Observable for button enabled state
+  final Myservices myservices = Get.find<Myservices>();
 
   @override
   void onInit() {
@@ -46,12 +47,19 @@ class Verifica extends GetxController {
     String code = codeControllers.map((controller) => controller.text).join();
 
     try {
-      var response = await verification.Verifica(email!, code);
+      var response = await verification.r(email!, code);
       print('Response: $response'); // Debugging: Log the response
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
-        if (response['status'] == "Success" ) {
+        if (response['status'] == "success" ) {
+           myservices.sharedPreferences.setString("id", response['data']['id'].toString());
+      
+        myservices.sharedPreferences.setString("username", response['data']['users_name']);
+            
+        myservices.sharedPreferences.setString("email", response['data']['users_email']);
+        myservices.sharedPreferences.setString("phone", response['data']['users_phone']);
+        myservices.sharedPreferences.setString("step", "2");
           Get.toNamed(AppRoutes.ResetPassword,arguments:{ "email": email});
         } else {
           Get.defaultDialog(title: "Warning", middleText: "Invalid verification code");

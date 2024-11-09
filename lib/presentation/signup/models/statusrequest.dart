@@ -3,5 +3,5 @@ loading,
 success,
 failure,
 serverfailure,
-offlinefailure,
+offlinefailure, error,
 }

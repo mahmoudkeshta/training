@@ -23,5 +23,10 @@ class Homedata{
   }
   
   
-  
+    getDe(String id)async{
+   var response= await crud.postData(AppLink.h, {
+    "id":id
+   });
+  return response.fold((l) => l, (r) => r);
+  }
 }

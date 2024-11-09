@@ -1,8 +1,6 @@
-import 'dart:convert';
-import 'dart:ui';
-import 'package:flutter/scheduler.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
-import '../app_export.dart';
+
 
 // ignore_for_file: must_be_immutable
 class PrefUtils {
@@ -28,11 +26,12 @@ class PrefUtils {
     return _sharedPreferences!.setString('themeData', value);
   }
 
-  String getThemeData() {
-    try {
-      return _sharedPreferences!.getString('themeData')!;
-    } catch (e) {
-      return 'primary';
-    }
+String getThemeData() {
+  try {
+    return _sharedPreferences?.getString('themeData') ?? 'primary';
+  } catch (e) {
+    return 'primary';
   }
+}
+
 }

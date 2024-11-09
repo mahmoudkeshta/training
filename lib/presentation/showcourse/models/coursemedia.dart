@@ -21,12 +21,12 @@ class coursemedia {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['MediaID'] = this.mediaID;
-    data['CourseID'] = this.courseID;
-    data['MediaType'] = this.mediaType;
-    data['MediaURL'] = this.mediaURL;
-    data['Description'] = this.description;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['MediaID'] = mediaID;
+    data['CourseID'] = courseID;
+    data['MediaType'] = mediaType;
+    data['MediaURL'] = mediaURL;
+    data['Description'] = description;
     return data;
   }
 }

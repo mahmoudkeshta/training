@@ -12,6 +12,7 @@ class Viewhierarchy1ItemWidget extends StatefulWidget {
   final coursedetails Coursedetails;
   final coursemedia Coursemedia;
   final coursedetails2 Coursedetails2;
+  //final int i;
  //final int selectcart;
  
   const Viewhierarchy1ItemWidget({
@@ -19,7 +20,7 @@ class Viewhierarchy1ItemWidget extends StatefulWidget {
     required this.Course,
     required this.Coursedetails,
     required this.Coursedetails2,
-    required this.Coursemedia,
+    required this.Coursemedia, //required this.i,
  //    required this.selectcart,
 
   });
@@ -33,25 +34,37 @@ class _Viewhierarchy1ItemWidgetState extends State<Viewhierarchy1ItemWidget> {
   bool _isExpanded = false;
 
   @override
-  void initState() {
-    super.initState();
-    // Start the animation automatically when the page loads
-    Future.delayed(Duration(milliseconds: 100), () {
+void initState() {
+  super.initState();
+  // Start the animation automatically when the page loads
+  Future.delayed(const Duration(milliseconds: 100), () {
+    if (mounted) {
       setState(() {
         _isExpanded = true;
       });
-    });
-  }
+    }
+  });
+}
+
+@override
+void dispose() {
+  // Add any cleanup code if needed
+  super.dispose();
+}
+
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        
         controller.gotoshowcourse(widget.Course, widget.Coursedetails, widget.Coursemedia,widget.Coursedetails2//,widget.selectcart
+     //  controller.gotoshowcourse2(widget.Course, widget.Coursedetails, widget.Coursemedia,widget.Coursedetails2,widget.i//,widget.selectcart
+        
         );
       },
       child: AnimatedContainer(
-        duration: Duration(seconds: 4), // Duration of the animation
+        duration: const Duration(seconds: 4), // Duration of the animation
         curve: Curves.bounceOut, // Animation curve
         width: _isExpanded ? 230.h : 200.h, // Adjust width based on _isExpanded
         child: Align(
@@ -65,7 +78,7 @@ class _Viewhierarchy1ItemWidgetState extends State<Viewhierarchy1ItemWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AnimatedContainer(
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                   curve: Curves.easeInOut,
                   height: 133.v,
                   width: 230.h,
@@ -109,7 +122,9 @@ class _Viewhierarchy1ItemWidgetState extends State<Viewhierarchy1ItemWidget> {
                         padding: EdgeInsets.only(left: 23.h),
                         child: Text(
                       //  "${widget.Coursedetails2.favorite}",
-                         "10.5k Learners",
+                      //   "10.5k Learners",
+                        " ${widget.Coursemedia.mediaID}K Learners",
+
                           style: CustomTextStyles.bodySmallGray80002,
                         ),
                       ),

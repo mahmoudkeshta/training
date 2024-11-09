@@ -5,6 +5,8 @@ import 'package:training/presentation/Verifiy/controller/VerificationController.
 import 'package:training/core/utils/image_constant.dart';
 
 class Verify extends StatelessWidget {
+  const Verify({super.key});
+
   @override
   Widget build(BuildContext context) {
     final Verifica controller = Get.put(Verifica());
@@ -13,7 +15,7 @@ class Verify extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color.fromRGBO(255, 255, 255, 1),
         ),
         child: SingleChildScrollView(
@@ -21,8 +23,8 @@ class Verify extends StatelessWidget {
             children: [
               Column(
                 children: <Widget>[
-                  SizedBox(height: 144),
-                  Text(
+                  const SizedBox(height: 144),
+                  const Text(
                     'Verify Code',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -33,8 +35,8 @@ class Verify extends StatelessWidget {
                       height: 1,
                     ),
                   ),
-                  SizedBox(height: 102),
-                  Text(
+                  const SizedBox(height: 102),
+                  const Text(
                     'Enter the 5-digit code sent to your phone',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -45,7 +47,7 @@ class Verify extends StatelessWidget {
                       height: 1,
                     ),
                   ),
-                  SizedBox(height: 67),
+                  const SizedBox(height: 67),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: List.generate(5, (index) {
@@ -66,7 +68,7 @@ class Verify extends StatelessWidget {
                       );
                     }),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   Obx(() => ElevatedButton(
                     onPressed: controller.isButtonEnabled.value 
                       ? () {
@@ -74,13 +76,13 @@ class Verify extends StatelessWidget {
                         }
                       : null,
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                       backgroundColor: Colors.deepPurple,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Verify',
                       style: TextStyle(
                         fontSize: 25,
@@ -88,8 +90,8 @@ class Verify extends StatelessWidget {
                       ),
                     ),
                   )),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Didn\'t receive the code? Resend',
                     textAlign: TextAlign.center,
                     style: TextStyle(

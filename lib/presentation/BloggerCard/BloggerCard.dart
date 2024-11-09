@@ -27,14 +27,14 @@ class BloggerCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: CachedNetworkImage(
               imageUrl: "${controller.Popular_bloggers.imageUrl}",
               placeholder: (context, url) => Container(
                 color: Colors.grey[200],
-                child: Center(child: CircularProgressIndicator()),
+                child: const Center(child: CircularProgressIndicator()),
               ),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               fit: BoxFit.cover,
             ),
           ),
@@ -45,20 +45,20 @@ class BloggerCard extends StatelessWidget {
               children: [
                 Text(
                   "${controller.Popular_bloggers.bloggerName}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   "${controller.Popular_bloggers.bloggerName}\n",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.blue,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   '${controller.Popular_bloggers.paragraphText}',
                   maxLines: 2,
@@ -68,7 +68,7 @@ class BloggerCard extends StatelessWidget {
                     color: Colors.grey[600],
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -76,8 +76,8 @@ class BloggerCard extends StatelessWidget {
                       child: TextButton(
                         onPressed: () {},
                         child: Text(
-                          '${controller.Popular_bloggers.paragraphText!.replaceAll('\n', '')}',
-                          style: TextStyle(
+                          controller.Popular_bloggers.paragraphText!.replaceAll('\n', ''),
+                          style: const TextStyle(
                             color: Colors.blue,
                             fontSize: 12,
                           ),
@@ -86,10 +86,10 @@ class BloggerCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.favorite_border,
                       size: 20,
-                      color: const Color.fromARGB(255, 227, 25, 25),
+                      color: Color.fromARGB(255, 227, 25, 25),
                     ),
                   ],
                 ),

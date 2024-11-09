@@ -5,7 +5,7 @@ import 'package:chewie/chewie.dart';
 class VideoPlayerScreen extends StatefulWidget {
   final String videoUrl;
 
-  VideoPlayerScreen({required this.videoUrl});
+  const VideoPlayerScreen({super.key, required this.videoUrl});
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
@@ -29,7 +29,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         return Center(
           child: Text(
             errorMessage,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         );
       },
@@ -47,7 +47,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Video Player'),
+        title: const Text('Video Player'),
       ),
       body: Center(
         child: Chewie(

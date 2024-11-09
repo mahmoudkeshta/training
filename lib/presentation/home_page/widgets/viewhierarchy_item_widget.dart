@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/course.dart';
@@ -13,11 +14,8 @@ class ViewhierarchyItemWidget extends StatefulWidget {
   department Department;
  course Course;
 
-  ViewhierarchyItemWidget(this.viewhierarchyItemModelObj,  {Key? key, required this.Department,required this.Course
-  })
-      : super(
-          key: key,
-        );
+  ViewhierarchyItemWidget(this.viewhierarchyItemModelObj,  {super.key, required this.Department,required this.Course
+  });
 
   ViewhierarchyItemModel viewhierarchyItemModelObj;
 
@@ -32,7 +30,7 @@ class _ViewhierarchyItemWidgetState extends State<ViewhierarchyItemWidget> {
   void initState() {
     super.initState();
     // بدء الرسوم المتحركة تلقائيًا عند تحميل الصفحة
-    Future.delayed(Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
         _isExpanded = true;
      
@@ -67,7 +65,7 @@ class _ViewhierarchyItemWidgetState extends State<ViewhierarchyItemWidget> {
         statusRequest: controller.statusRequest,
         widget: AnimatedContainer(
              curve: Curves.bounceOut,
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           width: _isExpanded ? 250 : w, // تغيير العرض عند التوسع
           padding: EdgeInsets.all(17.h),
           decoration: AppDecoration.outlineBlack.copyWith(
@@ -86,7 +84,7 @@ class _ViewhierarchyItemWidgetState extends State<ViewhierarchyItemWidget> {
                     children: [
                       AnimatedDefaultTextStyle(
                         style: TextStyle(fontSize: 16,color:co),
-                        duration: Duration(seconds: 2),
+                        duration: const Duration(seconds: 2),
                         child: Text(
                           "${widget.Department.name}", // استخدام المتغير
                          // style: CustomTextStyles.labelLargeGray80002Bold,
@@ -109,23 +107,17 @@ class _ViewhierarchyItemWidgetState extends State<ViewhierarchyItemWidget> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Obx(
-                        () => CustomImageView(
-                          imagePath: widget.viewhierarchyItemModelObj.image1!.value,
-                          height: 9.v,
-                          width: 12.h,
-                          alignment: Alignment.topCenter,
-                          margin: EdgeInsets.only(top: 8.v),
-                        ),
-                      ),
-                      Obx(
-                        () => CustomImageView(
-                          imagePath: widget.viewhierarchyItemModelObj.image2!.value,
-                          height: 28.v,
-                          width: 24.h,
-                          alignment: Alignment.center,
-                        ),
-                      ),
+                     
+                     // Obx(
+                        //() => 
+                       
+                  CachedNetworkImage(
+        imageUrl: "${ widget.Department.image_department!}",
+        placeholder: (context, url) => CircularProgressIndicator(),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+     ),
+
+                     // ),
                     ],
                   ),
                 ),

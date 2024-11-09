@@ -11,10 +11,7 @@ enum BottomBarEnum { Home, Mycourses, Blogs, Myprofile }
 
 // ignore_for_file: must_be_immutable
 class CustomBottomBar extends StatelessWidget {
-  CustomBottomBar({Key? key, this.onChanged})
-      : super(
-          key: key,
-        );
+  CustomBottomBar({super.key, this.onChanged});
 
   RxInt selectedIndex = 0.obs;
 
@@ -136,12 +133,14 @@ class BottomMenuModel {
 }
 
 class DefaultWidget extends StatelessWidget {
+  const DefaultWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 146, 12, 12),
-      padding: EdgeInsets.all(10),
-      child: Center(
+      color: const Color.fromARGB(255, 146, 12, 12),
+      padding: const EdgeInsets.all(10),
+      child: const Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,

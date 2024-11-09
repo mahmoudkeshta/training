@@ -8,10 +8,10 @@ import '../controller/home_controller.dart';
 class UserprofileItemWidget extends StatefulWidget {
   final popular_bloggers popular;
 
-  UserprofileItemWidget({
-    Key? key,
+  const UserprofileItemWidget({
+    super.key,
     required this.popular,
-  }) : super(key: key);
+  });
 
   @override
   _UserprofileItemWidgetState createState() => _UserprofileItemWidgetState();
@@ -25,7 +25,7 @@ class _UserprofileItemWidgetState extends State<UserprofileItemWidget> {
   void initState() {
     super.initState();
     // بدء الرسوم المتحركة تلقائيًا عند تحميل الصفحة
-    Future.delayed(Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
         _isExpanded = true;
       });
@@ -50,9 +50,11 @@ class _UserprofileItemWidgetState extends State<UserprofileItemWidget> {
       onTap: () {
         controller.gotopopularbloggers(widget.popular);
       },
-      child: AnimatedContainer(
+      child:
+      
+       AnimatedContainer(
           curve: Curves.bounceOut,
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         width: width,
         child: Align(
           alignment: Alignment.centerRight,

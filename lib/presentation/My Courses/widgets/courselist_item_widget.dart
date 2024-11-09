@@ -1,196 +1,171 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:training/core/network/services.dart';
+import 'package:training/presentation/My%20Courses/controller/mycourselistc.dart';
+import 'package:training/presentation/My%20Courses/models/data.dart';
+import 'package:training/presentation/admin/modle/Course.dart';
 import 'package:training/presentation/home_page/controller/home_controller.dart';
+import 'package:training/presentation/home_page/models/HandlingDataview.dart';
 import 'package:training/presentation/home_page/models/course.dart';
-import 'package:training/presentation/home_page/models/coursedetails.dart';
 import 'package:training/presentation/home_page/models/coursedetails1.dart';
 import 'package:training/presentation/home_page/models/home_model.dart';
 import 'package:training/presentation/showcourse/models/coursemedia.dart';
 import 'package:training/presentation/showcourse/models/usercourseregistration.dart';
 import '../../../core/app_export.dart';
-import '../controller/iphone_11_pro_max_ten_controller.dart';
+import '../../home_page/models/coursedetails.dart';
 
 class CourselistItemWidget extends StatefulWidget {
-  final course Course;
-  final coursedetails Coursedetails;
-  final coursemedia Coursemedia;
-  final usercourseregistration Usercourseregistration;
- final coursedetails2 Coursedetails2;
+  const CourselistItemWidget({super.key});
 
   
-int ?selectcart;
-
-  CourselistItemWidget({
-    Key? key,
-    required this.Course,
-    required this.Coursedetails,
-    required this.Coursedetails2,
-    required this.Coursemedia, required this.Usercourseregistration,
-  }) : super(key: key);
-
+ 
   @override
   _CourselistItemWidgetState createState() => _CourselistItemWidgetState();
 }
 
+
+    final HomeController homeController = Get.find();
+
+
 class _CourselistItemWidgetState extends State<CourselistItemWidget> {
-  var controller = Get.find<Iphone11ProMaxTenController>();
-  final HomeController controller1 = Get.put(HomeControllerImp(HomeModel().obs));
-
-  bool _isExpanded = false;
-
-/**
- *   @override
-  void initState() {
-    super.initState();
-    // تغيير حالة _isExpanded بعد فترة زمنية
-    Future.delayed(Duration(milliseconds: 500), () {
-      setState(() {
-         _isExpanded = !_isExpanded;
-             print("Expanded state: $_isExpanded"); 
-      }
-      );
-    });
-  }
- */
-
+  final mycourselistc controller = Get.find();
+late Data data;
+ late coursedetails Coursedetails;
+    late coursedetails2 Coursedetails2;
+    late coursemedia Coursemedia;
+late final int ?i;
   @override
   Widget build(BuildContext context) {
-Myservices myservices=Get.find();
-String? id = myservices.sharedPreferences.getString("id");
-String? username = myservices.sharedPreferences.getString("username");
-String? email = myservices.sharedPreferences.getString("email");
+    return GetBuilder<mycourselistc>(
+      builder: (controller) {
+        return HandlingDataview(
+          statusRequest: controller.statusRequest,
+          widget: Container(
+            padding: const EdgeInsets.all(10),
+            child: ListView.builder(
+              itemCount: controller.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return 
+          
+                _buildCourseCard( index , controller);
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
 
-    return 
-widget.Coursedetails.idusers.toString() == id 
-//widget.Usercourseregistration.userID.toString() == id 
-    //widget.Usercourseregistration.courseID.toString() == //courseID
-//&& 
-//widget.Usercourseregistration.courseID.toString() == widget.Course.courseID.toString()
-
-// '${id}'=="${controller1.Usercourseregistration.userID}"
-   // == 
-    ?  
-    
-    AnimatedContainer(
-      
-      duration: Duration(seconds: 1), // مدة الحركة
-      curve: Curves.easeInOut, // منحنى الحركة
-      width: _isExpanded ? 400 : 50, // عرض الحاوية يتغير مع الحركة
-      decoration: AppDecoration.outlineBlack900,
-      child: Container(
-        margin: EdgeInsets.only(left: 1.h),
-        padding: EdgeInsets.symmetric(
-          horizontal: 16.h,
-          vertical: 11.v,
-        ),
-        decoration: AppDecoration.fillWhiteA.copyWith(
-          borderRadius: BorderRadiusStyle.roundedBorder15,
-        ),
+  // Card design
+  Widget _buildCourseCard(int index, mycourselistc controller) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      elevation: 5,
+      shadowColor: Colors.grey.withOpacity(0.3),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10.v),
-            Padding(
-              padding: EdgeInsets.only(left: 1.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${widget.Coursedetails.courseTitle}",
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                      SizedBox(height: 7.v),
-                      SizedBox(
-                        width: 206.h,
-                        child: Text(
-                          "${widget.Coursedetails.courseDescription}",
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall,
-                        ),
-                      ),
-                      SizedBox(height: 8.v),
-                      Row(
-                        children: [
-                          CustomImageView(
-                            imagePath: ImageConstant.imgBytesizeClock,
-                            height: 14.adaptSize,
-                            width: 14.adaptSize,
-                            margin: EdgeInsets.only(top: 1.v),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.h),
-                            child: Text(
-                              "l",
-                              style: theme.textTheme.bodySmall,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  Container(
-                    height: 62.adaptSize,
-                    width: 62.adaptSize,
-                    margin: EdgeInsets.only(
-                      top: 15.v,
-                      bottom: 21.v,
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "2 hours left",
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            height: 62.adaptSize,
-                            width: 62.adaptSize,
-                            decoration: BoxDecoration(
-                              color: appTheme.greenA700,
-                              borderRadius: BorderRadius.circular(31.h),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(height: 36.v),
-            InkWell(
-              child: Text(
-                "Start Learning",
-                style: CustomTextStyles.bodyLargePrimaryContainer,
-              ),
-              onTap: () {
-                controller1.gotoshowcourse(
-                    widget.Course, widget.Coursedetails, widget.Coursemedia,widget.Coursedetails2//,widget.selectcart!
-                    );
-              },
-              onDoubleTap: () {    setState(() {
-         _isExpanded = !_isExpanded;
-             print("Expanded state: $_isExpanded"); 
-      }
-      );
-                
-              },
-
-            ),
+            _buildCardHeader(index, controller),
+            _buildCourseDetails(index, controller),
+            _buildStartLearningButton(),
           ],
         ),
       ),
-    ):Container();
+    );
+  }
+
+  // Image and course title in header
+  Widget _buildCardHeader(int index, mycourselistc controller) {
+    return Stack(
+      children: [
+        // Placeholder for course image (replace with actual image)
+       Container(
+          height: 150,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(controller.data[index].Image_courese.toString()), // Replace with your image URL
+              fit: BoxFit.cover,
+            ),
+          ),
+        ), 
+        // Gradient overlay to enhance text readability
+        Container(
+          height: 150,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.black.withOpacity(0.6), Colors.transparent],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+            ),
+          ),
+        ),
+        // Course title over the image
+        Positioned(
+          bottom: 10,
+          left: 15,
+          child: Text(
+            "${controller.data[index].courseTitle}",
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Course description
+  Widget _buildCourseDetails(int index, mycourselistc controller) {
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "${controller.data[index].courseDescription}",
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.grey[700],
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+
+  // Button to start learning
+  Widget _buildStartLearningButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromRGBO(212, 157, 47, 1), // Change button color here
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: () {
+
+        },
+        child: const Center(
+          child: Text(
+            "Start Learning",
+            style: TextStyle(fontSize: 16,color: Colors.white, fontWeight: FontWeight.normal),
+            
+          ),
+        ),
+      ),
+    );
   }
 }

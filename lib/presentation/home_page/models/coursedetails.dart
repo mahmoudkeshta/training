@@ -4,7 +4,7 @@ class coursedetails {
   String? courseDescription;
   String? startDate;
   String? endDate;
-  String? evaluation;
+  String? evaluation; // يمكنك تعديل هذا إلى double إذا كانت التقييمات أرقامًا
   int? adminID;
   String? adminName;
   int? departmentID;
@@ -15,81 +15,76 @@ class coursedetails {
   String? dayOfWeekArabic;
   String? courseDate;
   String? userName;
-  int? id;
   String? courseURL;
-  String? videoURL;
-  int? idusers;
-  
+String ?Image_courese;
+  String? price;
 
 
-  coursedetails(
-      {this.courseID,
-      this.courseTitle,
-      this.courseDescription,
-      this.startDate,
-      this.endDate,
-      this.evaluation,
-      this.adminID,
-      this.adminName,
-      this.departmentID,
-      this.departmentName,
-      this.sessionID,
-      this.sessionDate,
-      this.dayOfWeek,
-      this.dayOfWeekArabic,
-      this.courseDate,
-      this.userName,
-      this.id,
-      this.courseURL,
-      this.videoURL,
-      this.idusers
-      });
+  coursedetails({
+    this.courseID,
+    this.courseTitle,
+    this.courseDescription,
+    this.startDate,
+    this.endDate,
+    this.evaluation,
+    this.adminID,
+    this.adminName,
+    this.departmentID,
+    this.departmentName,
+    this.sessionID,
+    this.sessionDate,
+    this.dayOfWeek,
+    this.dayOfWeekArabic,
+    this.courseDate,
+    this.userName,
+    this.courseURL,
+    this.Image_courese,
+    this.price
+  });
 
   coursedetails.fromJson(Map<String, dynamic> json) {
-    courseID = json['CourseID'];
+    courseID = int.tryParse(json['CourseID']?.toString() ?? '0');
     courseTitle = json['CourseTitle'];
     courseDescription = json['CourseDescription'];
     startDate = json['StartDate'];
     endDate = json['EndDate'];
-    evaluation = json['evaluation'];
-    adminID = json['AdminID'];
+    evaluation = json['evaluation']?.toString(); // يحتمل أن يكون نصًا
+    adminID = int.tryParse(json['AdminID']?.toString() ?? '0');
     adminName = json['AdminName'];
-    departmentID = json['DepartmentID'];
+    departmentID = int.tryParse(json['DepartmentID']?.toString() ?? '0');
     departmentName = json['DepartmentName'];
-    sessionID = json['SessionID'];
+    sessionID = int.tryParse(json['SessionID']?.toString() ?? '0');
     sessionDate = json['SessionDate'];
     dayOfWeek = json['DayOfWeek'];
     dayOfWeekArabic = json['DayOfWeekArabic'];
     courseDate = json['CourseDate'];
     userName = json['UserName'];
-    id = json['id'];
     courseURL = json['CourseURL'];
-    videoURL = json['VideoURL'];
-    idusers = json['idusers'];
+    Image_courese = json['Image_courese'];
+    price = json['price'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['CourseID'] = this.courseID;
-    data['CourseTitle'] = this.courseTitle;
-    data['CourseDescription'] = this.courseDescription;
-    data['StartDate'] = this.startDate;
-    data['EndDate'] = this.endDate;
-    data['evaluation'] = this.evaluation;
-    data['AdminID'] = this.adminID;
-    data['AdminName'] = this.adminName;
-    data['DepartmentID'] = this.departmentID;
-    data['DepartmentName'] = this.departmentName;
-    data['SessionID'] = this.sessionID;
-    data['SessionDate'] = this.sessionDate;
-    data['DayOfWeek'] = this.dayOfWeek;
-    data['DayOfWeekArabic'] = this.dayOfWeekArabic;
-    data['CourseDate'] = this.courseDate;
-    data['UserName'] = this.userName;
-    data['id'] = this.id;
-    data['CourseURL'] = this.courseURL;
-    data['VideoURL'] = this.videoURL;
-    data['idusers'] = this.idusers;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['CourseID'] = courseID;
+    data['CourseTitle'] = courseTitle;
+    data['CourseDescription'] = courseDescription;
+    data['StartDate'] = startDate;
+    data['EndDate'] = endDate;
+    data['evaluation'] = evaluation;
+    data['AdminID'] = adminID;
+    data['AdminName'] = adminName;
+    data['DepartmentID'] = departmentID;
+    data['DepartmentName'] = departmentName;
+    data['SessionID'] = sessionID;
+    data['SessionDate'] = sessionDate;
+    data['DayOfWeek'] = dayOfWeek;
+    data['DayOfWeekArabic'] = dayOfWeekArabic;
+    data['CourseDate'] = courseDate;
+    data['UserName'] = userName;
+    data['CourseURL'] = courseURL;
+    data['Image_courese'] = Image_courese;
+    data['price'] = price;
     return data;
   }
 }

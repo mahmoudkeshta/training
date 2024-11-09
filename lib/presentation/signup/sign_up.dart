@@ -7,6 +7,8 @@ import 'package:training/core/utils/image_constant.dart';
 import 'package:training/presentation/signup/controller/LoginPage_controller.dart';
 
 class signup1 extends StatelessWidget {
+  const signup1({super.key});
+
  // signup(find);
 
   @override
@@ -17,7 +19,7 @@ class signup1 extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color.fromRGBO(255, 255, 255, 1),
         ),
         child: SingleChildScrollView(
@@ -25,8 +27,8 @@ class signup1 extends StatelessWidget {
             children: [
               Column(
                 children: <Widget>[
-                  SizedBox(height: 144),
-                  Text(
+                  const SizedBox(height: 144),
+                  const Text(
                     'Hello',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -37,8 +39,8 @@ class signup1 extends StatelessWidget {
                       height: 1,
                     ),
                   ),
-                  SizedBox(height: 2),
-                  Text(
+                  const SizedBox(height: 2),
+                  const Text(
                     'Create a new account',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -49,14 +51,14 @@ class signup1 extends StatelessWidget {
                       height: 1,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 45),
                     child: TextFormField(
                       controller: controller.usernameController,
                       decoration: InputDecoration(
                         labelText: 'Username',
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           color: Color.fromRGBO(199, 199, 199, 1),
                           fontFamily: 'Lato',
                           fontSize: 15,
@@ -69,14 +71,14 @@ class signup1 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 45),
                     child: TextFormField(
                       controller: controller.emailController,
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           color: Color.fromRGBO(199, 199, 199, 1),
                           fontFamily: 'Lato',
                           fontSize: 15,
@@ -89,7 +91,7 @@ class signup1 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 45),
                     child: TextFormField(
@@ -97,7 +99,7 @@ class signup1 extends StatelessWidget {
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password',
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           color: Color.fromRGBO(199, 199, 199, 1),
                           fontFamily: 'Lato',
                           fontSize: 15,
@@ -110,14 +112,14 @@ class signup1 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 45),
                     child: TextFormField(
                       controller: controller.phoneController,
                       decoration: InputDecoration(
                         labelText: 'Phone Number',
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           color: Color.fromRGBO(199, 199, 199, 1),
                           fontFamily: 'Lato',
                           fontSize: 15,
@@ -130,7 +132,7 @@ class signup1 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   GetBuilder<LogController>(
                     builder: (_) {
                       return ElevatedButton(
@@ -140,12 +142,12 @@ class signup1 extends StatelessWidget {
                               }
                             : null,
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12), backgroundColor: Colors.deepPurple,
+                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12), backgroundColor: Colors.deepPurple,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Sign Up',
                           style: TextStyle(
                             fontSize: 25,
@@ -157,8 +159,8 @@ class signup1 extends StatelessWidget {
                       
                     },
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Already have an account? Sign In',
                     textAlign: TextAlign.center,
                     style: TextStyle(

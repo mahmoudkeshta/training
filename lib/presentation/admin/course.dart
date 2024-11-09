@@ -11,6 +11,8 @@ import 'package:training/presentation/home_page/models/course.dart';
 
 
 class CoursePage extends StatefulWidget {
+  const CoursePage({super.key});
+
   @override
   _CoursePageState createState() => _CoursePageState();
 }
@@ -193,6 +195,8 @@ class _CoursePageState extends State<CoursePage> {
 
 
 class SchedulePage extends StatefulWidget {
+  const SchedulePage({super.key});
+
   @override
   _SchedulePageState createState() => _SchedulePageState();
 }
@@ -325,6 +329,8 @@ class _SchedulePageState extends State<SchedulePage> {
 
 
 class MediaPage extends StatefulWidget {
+  const MediaPage({super.key});
+
   @override
   _MediaPageState createState() => _MediaPageState();
 }
@@ -456,6 +462,8 @@ class _MediaPageState extends State<MediaPage> {
 
 
 class VideoPage extends StatefulWidget {
+  const VideoPage({super.key});
+
   @override
   _VideoPageState createState() => _VideoPageState();
 }
