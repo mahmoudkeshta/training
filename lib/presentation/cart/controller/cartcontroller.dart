@@ -98,7 +98,7 @@ class Cartcontroller extends GetxController {
   // Stripe payment handler
   void payNow() {
     int amount = total.toInt();
-    PaymentManager.makePayment(amount, "USD");
+   // PaymentManager.makePayment(amount, "USD");
     clearCart();
    // Get.back();
     update();

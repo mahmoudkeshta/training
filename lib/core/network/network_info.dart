@@ -1,4 +1,4 @@
-
+/**
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 
@@ -76,3 +76,4 @@ class NoInternetException implements Exception {
     return _message;
   }
 }
+**/

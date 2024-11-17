@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+/**import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:training/stripe_payment/stripe_keys.dart';
 // ignore: depend_on_referenced_packages
@@ -43,4 +43,4 @@ abstract class PaymentManager{
     return response.data["client_secret"];
   }
 
-}
+}**/

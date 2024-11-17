@@ -1,4 +1,4 @@
-import 'package:device_info_plus/device_info_plus.dart';
+//import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -111,7 +111,7 @@ class LogController1 extends LoginController {
     update();
   }
  
-  @override
+/**  @override
   Future<void> signUp() async {
     // هنا يمكنك تنفيذ منطق التسجيل الخاص بك
   }
@@ -119,12 +119,12 @@ class LogController1 extends LoginController {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
   return androidInfo.model; // على سبيل المثال للحصول على نوع الجوال
-}
+}**/
 Future<Position> getCurrentLocation() async {
   return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   
 }
-void onLogin() async {
+/**void onLogin() async {
   Crud crud = Crud(); // تهيئة كائن Crud
   LoginService loginService = LoginService(crud);
 
@@ -139,7 +139,7 @@ void onLogin() async {
   } else {
     print("Failed to send login data.");
   }
-}
+}**/
 
 
   void _checkIfButtonShouldBeEnabled() {
@@ -150,6 +150,12 @@ void onLogin() async {
   @override
   forgetpassword() {
   Get.toNamed(AppRoutes.CheckEmail);
+  }
+  
+  @override
+  Future<void> signUp() {
+    // TODO: implement signUp
+    throw UnimplementedError();
   }
  
 }

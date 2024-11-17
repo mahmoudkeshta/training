@@ -1,5 +1,5 @@
 // ignore: depend_on_referenced_packages
-export 'package:connectivity_plus/connectivity_plus.dart';
+//export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:training/core/utils/image_constant.dart';
 export 'package:training/core/network/network_info.dart';
 export 'package:training/core/utils/logger.dart';

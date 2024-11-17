@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+//import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
+//import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:training/core/network/linkapi.dart';
 import 'package:training/core/network/services.dart';
@@ -31,20 +31,20 @@ WidgetsFlutterBinding.ensureInitialized();
       .then((value) {
     // Initialize logger based on release mode
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
- Stripe.publishableKey=ApiKeys.pusblishablekey;
+ //Stripe.publishableKey=ApiKeys.pusblishablekey;
   
     // Run your app
     runApp(MyApp());
   });
 }
 
-void changeStatusBarColor(Color color) {
+/**void changeStatusBarColor(Color color) {
   FlutterStatusbarcolor.setStatusBarColor(color);
 
   // Determine if status bar icons should be light or dark based on the color brightness
   bool useWhiteForeground = color.computeLuminance() < 0.5; // Light colors will have dark icons
   FlutterStatusbarcolor.setStatusBarWhiteForeground(useWhiteForeground);
-} 
+} **/
 
 
 class MyApp extends StatelessWidget {
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     localizationcontroller controller =Get.put(localizationcontroller());
     // Change status bar color to desired color
-   changeStatusBarColor(const Color.fromRGBO(212, 157, 47, 1)); // مثال لتغيير اللون إلى الأبيض
+//   changeStatusBarColor(const Color.fromRGBO(212, 157, 47, 1)); // مثال لتغيير اللون إلى الأبيض
 
     return Sizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
